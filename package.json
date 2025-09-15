@@ -4,6 +4,7 @@
   "description": "MCP server for automatic prompt enhancement using world-class prompt engineering techniques",
   "license": "MIT",
   "type": "module",
+  "author": "Aung Myo Kyaw (https://github.com/AungMyoKyaw)",
   "bin": {
     "betterprompt-mcp": "dist/index.js"
   },
