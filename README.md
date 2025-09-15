@@ -1,0 +1,196 @@
+# BetterPrompt MCP Server
+
+An MCP (Model Context Protocol) server that automatically rephrases all user prompts using world-class prompt engineering techniques to make them more effective when used with AI models.
+
+## Overview
+
+The BetterPrompt server enhances all prompts automatically using various advanced prompt engineering techniques developed by leading AI research institutions including Anthropic, OpenAI, and Google DeepMind. It helps users create more effective prompts that produce better results from AI models without requiring explicit tool invocation.
+
+Unlike other MCP tools that need to be explicitly called, BetterPrompt automatically processes every user request, improving the underlying prompt before it's sent to the AI model. By default, the server uses Sequential Thinking approach which mimics how world-class prompt engineers think through problems adaptively.
+
+## Features
+
+The server implements the following advanced prompt engineering techniques:
+
+- **Chain-of-Thought**: Breaking down complex requests into step-by-step reasoning
+- **Role Prompting**: Assigning expert roles to guide responses
+- **Few-Shot Learning**: Providing examples to demonstrate desired output
+- **Tree-of-Thoughts**: Exploring multiple reasoning paths simultaneously
+- **ReAct (Reasoning + Action)**: Combining reasoning and action-taking
+- **Reflexion**: Enabling self-reflection and iterative improvement
+- **Generate Knowledge**: Instructing models to generate relevant background information
+- **Prompt Chaining**: Breaking complex tasks into sequential steps
+- **Self-Consistency**: Generating multiple reasoning paths and selecting the most consistent answer
+- **Sequential Thinking**: Applying adaptive, step-by-step thinking like expert problem solvers
+- **Comprehensive**: Combining multiple techniques for maximum effectiveness
+
+## Installation
+
+### From npm
+
+```bash
+npm install @modelcontextprotocol/server-betterprompt
+```
+
+### Local Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd betterprompt-mcp
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Build the project:
+```bash
+npm run build
+```
+
+4. Link globally (optional):
+```bash
+npm link
+```
+
+### Using the MCP
+
+To use this MCP with an MCP-compatible client:
+
+1. Ensure the server is installed and built
+2. Run the server:
+```bash
+npx betterprompt-mcp
+```
+3. Connect your MCP client to the server
+
+If you've linked it globally, you can run:
+```bash
+betterprompt-mcp
+```
+
+Once connected, BetterPrompt will automatically enhance all user prompts without requiring explicit tool invocation.
+
+## Usage
+
+### Running the Server
+
+```bash
+npx betterprompt-mcp
+```
+
+Or if installed globally:
+
+```bash
+betterprompt-mcp
+```
+
+### How It Works
+
+BetterPrompt automatically processes every user request without requiring explicit invocation. When a user sends any prompt, the server:
+
+1. Intercepts the prompt before it reaches the AI model
+2. Rephrases it using advanced prompt engineering techniques
+3. Sends the enhanced prompt to the AI model
+4. Returns the result to the user
+
+Users don't need to explicitly call the `betterprompt` tool - it works automatically on all requests.
+
+### Using the Tool Explicitly
+
+While BetterPrompt works automatically, you can still explicitly call the tool with specific parameters:
+
+```json
+{
+  "prompt": "The original prompt to rephrase",
+  "technique": "The prompt engineering technique to use (optional, defaults to 'comprehensive')"
+}
+```
+
+Available techniques:
+- `chain-of-thought`
+- `role`
+- `few-shot`
+- `tree-of-thoughts`
+- `react`
+- `reflexion`
+- `generate-knowledge`
+- `prompt-chaining`
+- `self-consistency`
+- `sequential-thinking` (default)
+- `comprehensive`
+
+### Example Requests
+
+Since BetterPrompt works automatically, users simply interact with the AI as normal:
+
+```
+User: Explain quantum computing
+```
+
+BetterPrompt automatically enhances this request before sending it to the AI model.
+
+Explicit tool usage:
+```json
+{
+  "name": "betterprompt",
+  "arguments": {
+    "prompt": "Write a marketing copy for a new smartphone",
+    "technique": "few-shot"
+  }
+}
+```
+
+## Development
+
+### Building
+
+```bash
+npm run build
+```
+
+This command will:
+1. Compile TypeScript files to JavaScript in the `dist` directory
+2. Make the output files executable
+
+### Running in Watch Mode
+
+```bash
+npm run watch
+```
+
+This command will continuously compile TypeScript files as they change.
+
+### Testing
+
+```bash
+node test.js
+```
+
+## How It Works
+
+The server implements specialized rephrasing functions for each technique:
+
+1. **Chain-of-Thought**: Rephrases prompts to include sequential reasoning steps
+2. **Role Prompting**: Assigns specific expert roles with detailed credentials
+3. **Few-Shot**: Adds sophisticated examples to demonstrate the desired approach
+4. **Tree-of-Thoughts**: Structures prompts to explore multiple reasoning paths
+5. **ReAct**: Formats prompts for interleaved reasoning and action steps
+6. **Reflexion**: Adds self-evaluation and iterative improvement components
+7. **Generate Knowledge**: Includes steps to generate relevant background information
+8. **Prompt Chaining**: Breaks complex tasks into sequential sub-prompts
+9. **Self-Consistency**: Structures prompts to generate multiple reasoning paths
+10. **Sequential Thinking**: Applies adaptive, step-by-step thinking like expert problem solvers
+11. **Comprehensive**: Combines multiple techniques for maximum effectiveness
+
+Each technique is designed to leverage the latest research in prompt engineering to produce more effective prompts. By default, the server uses Sequential Thinking which mimics how world-class prompt engineers approach problems.
+
+## License
+
+MIT
+
+## Author
+
+Anthropic, PBC (https://anthropic.com)
