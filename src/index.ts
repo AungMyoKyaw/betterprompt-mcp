@@ -434,17 +434,10 @@ server.registerTool(
       enhancement_type: z
         .enum(['creative', 'analytical', 'technical', 'comprehensive'])
         .optional()
-        .describe('Type of enhancement to apply'),
-      max_tokens: z
-        .number()
-        .min(50)
-        .max(2000)
-        .optional()
-        .describe('Maximum tokens for AI response')
-        .default(800)
+        .describe('Type of enhancement to apply')
     }
   },
-  async ({ prompt, enhancement_type = 'comprehensive', max_tokens = 800 }) => {
+  async ({ prompt, enhancement_type = 'comprehensive' }) => {
     try {
       // Use MCP sampling to get AI-powered enhancement
       const enhancementPrompt = `You are a world-class prompt engineer with expertise in advanced prompt engineering techniques from top AI research labs like Anthropic, OpenAI, and Google DeepMind.
@@ -472,7 +465,7 @@ Enhanced prompt:`;
             }
           }
         ],
-        maxTokens: max_tokens
+        maxTokens: 4000
       });
 
       const enhancedText =

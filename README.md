@@ -230,7 +230,6 @@ Input:
 
 - `prompt` (string, required)
 - `enhancement_type` (enum: creative | analytical | technical | comprehensive, optional)
-- `max_tokens` (number, 50–2000, optional; default 800)
 
 Fallback: If sampling isn’t available, it falls back to rule-based “comprehensive” enhancement.
 
@@ -323,8 +322,7 @@ Follow each client’s standard MCP config pattern. See MCP Quickstart below.
   "name": "ai-enhance-prompt",
   "arguments": {
     "prompt": "Analyze this data",
-    "enhancement_type": "analytical",
-    "max_tokens": 1000
+    "enhancement_type": "analytical"
   }
 }
 ```
