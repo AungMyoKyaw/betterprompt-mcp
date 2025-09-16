@@ -1,120 +1,306 @@
 # BetterPrompt MCP Server
 
-A powerful MCP (Model Context Protocol) server that provides advanced prompt engineering tools with AI model integration to enhance prompt effectiveness using world-class techniques.
+[![npm version](https://img.shields.io/npm/v/betterprompt-mcp?style=flat-square)](https://www.npmjs.com/package/betterprompt-mcp)
+[![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-brightgreen?style=flat-square)](https://modelcontextprotocol.io/)
+
+Advanced prompt enhancement tools for MCP clients. Ships three tools (rule-based, AI-enhanced, batch) to upgrade prompts w## Troubleshooting
+
+- Server doesn't start with npx proven techniques and intelligent sampling.
+
+— Built with the MCP TypeScript SDK v1.18.0, TypeScript 5.7+, ESM, and Zod.
+
+---
+
+## Quickstart
+
+Install and run via npx:
+
+```bash
+npx -y betterprompt-mcp
+```
+
+Or install directly into VS Code (opens a prompt to add the MCP server):
+
+[<img src="https://img.shields.io/badge/VS_Code-VS_Code?style=flat-square&label=Install%20Server&color=0098FF" alt="Install in VS Code">](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522betterprompt%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522betterprompt-mcp%2522%255D%257D)
+
+---
+
+## Install in your coding agent
+
+Most MCP clients work with this standard config:
+
+```json
+{
+  "mcpServers": {
+    "betterprompt": {
+      "command": "npx",
+      "args": ["-y", "betterprompt-mcp"]
+    }
+  }
+}
+```
+
+Pick your client below. Where available, click the install button; otherwise follow the manual steps.
+
+<details>
+<summary><b>VS Code</b></summary>
+
+Click a button to install:
+
+[<img src="https://img.shields.io/badge/VS_Code-VS_Code?style=flat-square&label=Install%20Server&color=0098FF" alt="Install in VS Code">](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522betterprompt%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522betterprompt-mcp%2522%255D%257D)
+[<img alt="Install in VS Code Insiders" src="https://img.shields.io/badge/VS_Code_Insiders-VS_Code_Insiders?style=flat-square&label=Install%20Server&color=24bfa5">](https://insiders.vscode.dev/redirect?url=vscode-insiders%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522betterprompt%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522betterprompt-mcp%2522%255D%257D)
+
+Fallback (CLI):
+
+```bash
+code --add-mcp '{"name":"betterprompt","command":"npx","args":["-y","betterprompt-mcp"]}'
+```
+
+[Docs: Add an MCP server](https://code.visualstudio.com/docs/copilot/chat/mcp-servers#_add-an-mcp-server)
+
+</details>
+
+<details>
+<summary><b>Cursor</b></summary>
+
+Click to install:
+
+[<img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor">](https://cursor.com/en/install-mcp?name=BetterPrompt&config=eyJjb21tYW5kIjoibnB4IC15IGJldHRlcnByb21wdC1tY3AifQ%3D%3D)
+
+Or add manually: Settings → MCP → Add new MCP Server → Type: command, Command: `npx -y betterprompt-mcp`.
+
+</details>
+
+<details>
+<summary><b>LM Studio</b></summary>
+
+Click to install:
+
+[![Add MCP Server betterprompt to LM Studio](https://files.lmstudio.ai/deeplink/mcp-install-light.svg)](https://lmstudio.ai/install-mcp?name=betterprompt&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImJldHRlcnByb21wdC1tY3AiXX0%3D)
+
+Or manually: Program → Install → Edit `mcp.json`, add the standard config above.
+
+</details>
+
+<details>
+<summary><b>Continue</b></summary>
+
+Install button: TODO – no public deeplink available yet.
+
+Manual setup:
+
+1. Open Continue Settings → open JSON configuration
+2. Add `mcpServers` entry:
+
+```json
+{
+  "mcpServers": {
+    "betterprompt": {
+      "command": "npx",
+      "args": ["-y", "betterprompt-mcp"]
+    }
+  }
+}
+```
+
+Restart Continue if needed.
+
+</details>
+
+<details>
+<summary><b>Goose</b></summary>
+
+Click to install:
+
+[![Install in Goose](https://block.github.io/goose/img/extension-install-dark.svg)](https://block.github.io/goose/extension?cmd=npx&arg=-y&arg=betterprompt-mcp&id=betterprompt&name=BetterPrompt&description=Enhance%20prompts%20with%20advanced%20techniques%20for%20MCP%20clients)
+
+Or manually: Advanced settings → Extensions → Add custom extension → Type: STDIO → Command: `npx -y betterprompt-mcp`.
+
+</details>
+
+<details>
+<summary><b>Claude Code (CLI)</b></summary>
+
+Install via CLI:
+
+```bash
+claude mcp add betterprompt npx -y betterprompt-mcp
+```
+
+</details>
+
+<details>
+<summary><b>Claude Desktop</b></summary>
+
+Add to `claude_desktop_config.json` using the standard config above, then restart Claude Desktop. See the MCP quickstart:
+
+[Model Context Protocol – Quickstart](https://modelcontextprotocol.io/quickstart/user)
+
+</details>
+
+<details>
+<summary><b>Windsurf</b></summary>
+
+Follow the Windsurf MCP documentation and use the standard config above.
+
+[Docs: Windsurf MCP](https://docs.windsurf.com/windsurf/cascade/mcp)
+
+</details>
+
+<details>
+<summary><b>Gemini CLI</b></summary>
+
+Follow the Gemini CLI MCP server guide; use the standard config above.
+
+[Docs: Configure MCP server in Gemini CLI](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md#configure-the-mcp-server-in-settingsjson)
+
+</details>
+
+<details>
+<summary><b>Qodo Gen</b></summary>
+
+Open Qodo Gen chat panel → Connect more tools → + Add new MCP → Paste the standard config above → Save.
+
+[Qodo Gen documentation](https://docs.qodo.ai/qodo-documentation/qodo-gen)
+
+</details>
+
+<details>
+<summary><b>opencode</b></summary>
+
+Create or edit `~/.config/opencode/opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "betterprompt": {
+      "type": "local",
+      "command": ["npx", "-y", "betterprompt-mcp"],
+      "enabled": true
+    }
+  }
+}
+```
+
+[opencode MCP documentation](https://opencode.ai/docs/mcp-servers/)
+
+</details>
+
+---
 
 ## Overview
 
-The BetterPrompt server offers three sophisticated tools for prompt enhancement:
+BetterPrompt MCP is a Model Context Protocol (MCP) server offering three complementary tools:
 
-1. **BetterPrompt Tool**: Rule-based prompt enhancement using proven techniques
-2. **AI-Enhanced Prompt Tool**: AI-powered prompt enhancement with contextual understanding
-3. **Batch Processing Tool**: Enhance multiple prompts simultaneously
+1. BetterPrompt (rule-based enhancement)
+2. AI-Enhanced Prompt (sampling-powered enhancement)
+3. Batch Enhance Prompts (process multiple prompts at once)
 
-Built with the latest MCP SDK v1.18.0, the server leverages cutting-edge prompt engineering techniques developed by leading AI research institutions including Anthropic, OpenAI, and Google DeepMind.
+Transport: stdio. MCP clients launch this server as a subprocess and exchange JSON-RPC messages over stdin/stdout. The server writes MCP messages to stdout and logs to stderr (as recommended by the MCP spec).
+
+---
+
+## Tools
+
+### 1) `betterprompt`
+
+Rule-based enhancement using established techniques:
+
+- Chain-of-Thought, Role Prompting, Few-Shot, Tree-of-Thoughts
+- ReAct, Reflexion, Generate Knowledge, Prompt Chaining
+- Self-Consistency, Sequential Thinking (default), Comprehensive
+
+Input:
+
+- `prompt` (string, required)
+- `technique` (enum, optional)
+
+Output: A rewritten prompt with structure, context, and clear instructions.
+
+### 2) `ai-enhance-prompt`
+
+AI-powered enhancement using MCP sampling API with configurable style and token limit.
+
+Input:
+
+- `prompt` (string, required)
+- `enhancement_type` (enum: creative | analytical | technical | comprehensive, optional)
+- `max_tokens` (number, 50–2000, optional; default 800)
+
+Fallback: If sampling isn’t available, it falls back to rule-based “comprehensive” enhancement.
+
+### 3) `batch-enhance-prompts`
+
+Enhance multiple prompts in one call.
+
+Input:
+
+- `prompts` (string[], 1–10, required)
+- `technique` (enum, optional; default `sequential-thinking`)
+
+Output: A formatted list of original vs. enhanced prompts.
+
+---
 
 ## Features
 
-### 🛠️ Available Tools
+- MCP TypeScript SDK v1.18.0 with stdio transport
+- TypeScript 5.7+, ESM, Zod validation
+- Enhanced, colorized server logging (to stderr)
+- Hybrid approach: rule-based techniques + AI sampling
 
-#### 1. BetterPrompt Tool (`betterprompt`)
-
-Rule-based prompt enhancement using proven techniques:
-
-- **Chain-of-Thought**: Breaking down complex requests into step-by-step reasoning
-- **Role Prompting**: Assigning expert roles to guide responses
-- **Few-Shot Learning**: Providing examples to demonstrate desired output
-- **Tree-of-Thoughts**: Exploring multiple reasoning paths simultaneously
-- **ReAct (Reasoning + Action)**: Combining reasoning and action-taking
-- **Reflexion**: Enabling self-reflection and iterative improvement
-- **Generate Knowledge**: Instructing models to generate relevant background information
-- **Prompt Chaining**: Breaking complex tasks into sequential steps
-- **Self-Consistency**: Generating multiple reasoning paths and selecting the most consistent answer
-- **Sequential Thinking**: Applying adaptive, step-by-step thinking like expert problem solvers
-- **Comprehensive**: Combining multiple techniques for maximum effectiveness
-
-#### 2. AI-Enhanced Prompt Tool (`ai-enhance-prompt`)
-
-AI-powered prompt enhancement with model sampling:
-
-- Uses the MCP sampling API to leverage AI models for intelligent prompt enhancement
-- Contextual understanding of prompt requirements
-- Four enhancement types: `creative`, `analytical`, `technical`, `comprehensive`
-- Configurable token limits (50-2000 tokens)
-- Fallback to rule-based enhancement if AI sampling fails
-
-#### 3. Batch Processing Tool (`batch-enhance-prompts`)
-
-Process multiple prompts simultaneously:
-
-- Enhance up to 10 prompts at once
-- Apply any technique to all prompts consistently
-- Organized output with clear separation
-- Efficient batch processing for productivity
-
-### 🚀 Technical Features
-
-- **Latest MCP SDK v1.18.0**: Built with the newest Model Context Protocol features
-- **TypeScript 5.7+**: Modern TypeScript with advanced type safety
-- **ESM Compatibility**: Full ES Module support for modern JavaScript
-- **Zod Validation**: Robust input validation with detailed error messages
-- **Enhanced Logging**: Colorful, informative console output
-- **AI Model Integration**: Leverages MCP sampling for AI-powered enhancements
+---
 
 ## Installation
 
-### Prerequisites
+Prerequisites:
 
-- Node.js v18.x or higher
-- npm or yarn package manager
+- Node.js v18 or newer
+- npm or yarn
 
-### Local Installation
+---
 
-1. Clone the repository:
+## Client Integration
 
-```bash
-git clone <repository-url>
-cd betterprompt-mcp
+### Claude Desktop (macOS)
+
+Add to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "betterprompt": {
+      "command": "npx",
+      "args": ["-y", "betterprompt-mcp"]
+    }
+  }
+}
 ```
 
-2. Install dependencies:
+Then restart Claude Desktop. If the server doesn’t appear, tail logs:
 
 ```bash
-npm install
+tail -n 20 -F ~/Library/Logs/Claude/mcp*.log
 ```
 
-3. Build the project:
+### VS Code
+
+Install via CLI:
 
 ```bash
-npm run build
+code --add-mcp '{"name":"betterprompt","command":"npx","args":["-y","betterprompt-mcp"]}'
 ```
 
-4. (Optional) Link globally for easy access:
+### Other MCP clients (Cursor, Goose, LM Studio, Qodo Gen, etc.)
 
-```bash
-npm link
-```
+Follow each client’s standard MCP config pattern. See MCP Quickstart below.
 
-### Using with MCP Clients
+---
 
-To use this server with MCP-compatible clients (like Claude Desktop, MCP clients, etc.):
+## Usage Examples
 
-1. Start the server:
-
-```bash
-npx betterprompt-mcp
-# or if linked globally:
-betterprompt-mcp
-```
-
-2. Configure your MCP client to connect to the server using stdio transport
-
-3. The server will expose three tools: `betterprompt`, `ai-enhance-prompt`, and `batch-enhance-prompts`
-
-## Usage
-
-### Tool 1: BetterPrompt (`betterprompt`)
-
-Enhance prompts using rule-based techniques:
+### Rule-based enhancement
 
 ```json
 {
@@ -126,28 +312,7 @@ Enhance prompts using rule-based techniques:
 }
 ```
 
-**Parameters:**
-
-- `prompt` (required): The original prompt to enhance
-- `technique` (optional): Enhancement technique to use (defaults to `sequential-thinking`)
-
-**Available techniques:**
-
-- `chain-of-thought` - Step-by-step reasoning
-- `role` - Expert role assignment
-- `few-shot` - Example-based learning
-- `tree-of-thoughts` - Multiple reasoning paths
-- `react` - Reasoning and action combination
-- `reflexion` - Self-reflection and improvement
-- `generate-knowledge` - Background information generation
-- `prompt-chaining` - Sequential task breakdown
-- `self-consistency` - Multiple path consistency
-- `sequential-thinking` - Adaptive expert-level thinking (default)
-- `comprehensive` - Combined techniques
-
-### Tool 2: AI-Enhanced Prompt (`ai-enhance-prompt`)
-
-Use AI model sampling for intelligent enhancement:
+### AI-enhanced prompt
 
 ```json
 {
@@ -160,15 +325,7 @@ Use AI model sampling for intelligent enhancement:
 }
 ```
 
-**Parameters:**
-
-- `prompt` (required): The original prompt to enhance
-- `enhancement_type` (optional): Type of enhancement (`creative`, `analytical`, `technical`, `comprehensive`)
-- `max_tokens` (optional): Maximum tokens for AI response (50-2000, default: 800)
-
-### Tool 3: Batch Processing (`batch-enhance-prompts`)
-
-Process multiple prompts simultaneously:
+### Batch processing
 
 ```json
 {
@@ -180,37 +337,30 @@ Process multiple prompts simultaneously:
 }
 ```
 
-**Parameters:**
+---
 
-- `prompts` (required): Array of prompts to enhance (max 10)
-- `technique` (optional): Technique to apply to all prompts (default: `sequential-thinking`)
+## Verify locally
 
-### Example Outputs
+Smoke tests start the server via stdio and exercise tool listing and calls.
 
-**Input:** "Write a story"
+```bash
+# Build first
+npm run build
 
-**Rule-based output (role technique):**
+# Basic test
+node tests/test.js
 
-```
-You are an award-winning science fiction author with a background in creative writing and literature. Write a compelling short story of approximately 800-1000 words that includes:
-
-1. A well-developed protagonist with clear motivations
-2. A engaging plot with conflict and resolution
-3. Vivid descriptive language and dialogue
-4. A specific setting that enhances the narrative
-5. A satisfying conclusion that ties together all elements
-
-The story should demonstrate sophisticated storytelling techniques including character development, pacing, and thematic depth. Target audience: Adult readers who appreciate literary fiction.
-
-Enhanced story:
+# Comprehensive verification
+node tests/final-verification.js
 ```
 
-**AI-enhanced output:**
-Uses contextual understanding to create even more sophisticated and tailored enhancements based on the AI model's analysis of the prompt requirements.
+Expected: tests print MCP responses and confirm tools are available and callable.
+
+---
 
 ## Development
 
-### Project Structure
+Project structure:
 
 ```
 betterprompt-mcp/
@@ -223,93 +373,24 @@ betterprompt-mcp/
 └── README.md             # This file
 ```
 
-### Building
+Build:
 
 ```bash
 npm run build
 ```
 
-Compiles TypeScript to JavaScript in the `dist` directory and makes files executable.
-
-### Development Mode
+Watch (dev):
 
 ```bash
 npm run watch
 ```
 
-Continuously compile TypeScript files as they change for development.
-
-### Testing
+Format:
 
 ```bash
-node tests/test.js
-```
-
-Or run the comprehensive verification suite:
-
-```bash
-node tests/final-verification.js
-```
-
-### Code Formatting
-
-This project uses Prettier for consistent code style:
-
-```bash
-# Format all files
 npm run format
-
-# Check formatting without changes
 npm run format:check
 ```
-
-### Dependencies
-
-**Runtime Dependencies:**
-
-- `@modelcontextprotocol/sdk@1.18.0` - Latest MCP SDK
-- `chalk@^5.3.0` - Terminal styling
-- `zod@^3.24.1` - Schema validation
-
-**Development Dependencies:**
-
-- `typescript@^5.7.2` - Latest TypeScript
-- `@types/node@^22.9.0` - Node.js type definitions
-- `prettier@^3.4.2` - Code formatting
-- `shx@^0.3.4` - Cross-platform shell commands
-
-## Architecture
-
-### Server Implementation
-
-Built with the latest MCP SDK v1.18.0 using the new `McpServer` API and `registerTool` methods for optimal performance and compatibility.
-
-### Prompt Enhancement Techniques
-
-The server implements specialized enhancement functions:
-
-1. **Chain-of-Thought**: Sequential reasoning steps with checkpoints
-2. **Role Prompting**: Expert role assignment with detailed credentials
-3. **Few-Shot**: Sophisticated examples demonstrating desired approaches
-4. **Tree-of-Thoughts**: Multiple reasoning path exploration
-5. **ReAct**: Interleaved reasoning and action step formatting
-6. **Reflexion**: Self-evaluation and iterative improvement components
-7. **Generate Knowledge**: Background information generation steps
-8. **Prompt Chaining**: Sequential task breakdown structure
-9. **Self-Consistency**: Multiple reasoning path consistency checks
-10. **Sequential Thinking**: Adaptive expert-level problem solving (default)
-11. **Comprehensive**: Combined multi-technique approach
-
-### AI Model Integration
-
-The `ai-enhance-prompt` tool leverages MCP's sampling API to:
-
-- Send enhancement requests to connected AI models
-- Receive intelligent, contextually-aware prompt improvements
-- Provide fallback to rule-based enhancement if AI sampling fails
-- Support configurable token limits and enhancement types
-
-This creates a hybrid approach combining rule-based techniques with AI-powered contextual understanding.
 
 ## License
 
