@@ -28,9 +28,7 @@ The server implements the following advanced prompt engineering techniques:
 
 ### From npm
 
-```bash
-npm install @modelcontextprotocol/server-betterprompt
-```
+The package is not yet published to npm. Please use local installation instead.
 
 ### Local Installation
 

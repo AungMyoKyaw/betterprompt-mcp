@@ -435,7 +435,7 @@ const config: ServerConfiguration = {
 
 const server = new Server(
   {
-    name: "betterprompt-server",
+    name: "betterprompt-mcp",
     version: "0.3.0",
   },
   {
@@ -539,7 +539,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("BetterPrompt MCP Server running on stdio");
+  console.error("BetterPrompt MCP Server (betterprompt-mcp) running on stdio");
   console.error("Automatic prompt enhancement is ENABLED for all user requests");
 }
 
