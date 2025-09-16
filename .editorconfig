@@ -1,0 +1,43 @@
+# EditorConfig helps developers define and maintain consistent coding styles
+# https://editorconfig.org
+
+# Top-most EditorConfig file
+root = true
+
+# Global defaults
+[*]
+indent_style = space
+indent_size = 2
+tab_width = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Markdown: keep trailing spaces (used for hard line breaks)
+[*.md]
+trim_trailing_whitespace = false
+
+# JSON & JSONC (VS Code config, tsconfig, package.json)
+[*.{json,jsonc}]
+indent_style = space
+indent_size = 2
+
+# TypeScript & JavaScript
+[*.{ts,tsx,js,jsx,mjs,cjs}]
+indent_style = space
+indent_size = 2
+
+# YAML (common in CI/CD; safe default if added later)
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# Shell scripts
+[*.sh]
+end_of_line = lf
+insert_final_newline = true
+
+# Makefiles require tabs for recipe lines
+[Makefile]
+indent_style = tab
