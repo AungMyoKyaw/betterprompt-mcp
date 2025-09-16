@@ -22,20 +22,20 @@ async function testServer() {
   });
 
   // Wait a bit for the server to start
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   // Send a test request
   const testRequest = {
-    jsonrpc: "2.0",
+    jsonrpc: '2.0',
     id: 1,
-    method: "tools/list",
+    method: 'tools/list',
     params: {}
   };
 
   server.stdin.write(JSON.stringify(testRequest) + '\n');
 
   // Wait for response
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   // Close the server
   server.kill();

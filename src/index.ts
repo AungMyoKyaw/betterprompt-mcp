@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
   Tool,
   CompleteRequestSchema,
-  CompleteResultSchema,
-} from "@modelcontextprotocol/sdk/types.js";
+  CompleteResultSchema
+} from '@modelcontextprotocol/sdk/types.js';
 // Fixed chalk import for ESM
 import chalk from 'chalk';
 
@@ -233,20 +233,29 @@ function analyzePromptForTechnique(originalPrompt: string): string {
   const length = originalPrompt.length;
   const questionMarkCount = (originalPrompt.match(/\?/g) || []).length;
   const hasData = /\b(data|analyze|report|chart|graph)\b/i.test(originalPrompt);
-  const hasCreative = /\b(write|story|poem|creative|imagine)\b/i.test(originalPrompt);
+  const hasCreative = /\b(write|story|poem|creative|imagine)\b/i.test(
+    originalPrompt
+  );
   const hasInstruction = /\b(step|how|guide|tutorial)\b/i.test(originalPrompt);
-  const complexity = Math.min(length / 50 + questionMarkCount + (hasData ? 1 : 0) + (hasCreative ? 1 : 0) + (hasInstruction ? 1 : 0), 10);
-  
+  const complexity = Math.min(
+    length / 50 +
+      questionMarkCount +
+      (hasData ? 1 : 0) +
+      (hasCreative ? 1 : 0) +
+      (hasInstruction ? 1 : 0),
+    10
+  );
+
   if (complexity > 7) {
-    return "comprehensive";
+    return 'comprehensive';
   } else if (hasData) {
-    return "generate-knowledge";
+    return 'generate-knowledge';
   } else if (hasCreative) {
-    return "few-shot";
+    return 'few-shot';
   } else if (hasInstruction) {
-    return "chain-of-thought";
+    return 'chain-of-thought';
   } else {
-    return "role";
+    return 'role';
   }
 }
 
@@ -339,42 +348,50 @@ interface RephrasePromptArguments {
 }
 
 class BetterPromptServer {
-  public rephrasePromptTool(input: unknown): { content: Array<{ type: string; text: string }> } {
+  public rephrasePromptTool(input: unknown): {
+    content: Array<{ type: string; text: string }>;
+  } {
     try {
       const args = input as RephrasePromptArguments;
-      
+
       if (!args.prompt || typeof args.prompt !== 'string') {
         throw new Error('Invalid prompt: must be a string');
       }
-      
+
       // If no technique is specified, use sequential-thinking as the default
       const technique = args.technique || 'sequential-thinking';
       const rephrasedPrompt = rephrasePrompt(args.prompt, technique);
-      
+
       // Log the rephrasing for debugging
-      console.error(chalk.blue(`\n📝 Rephrasing prompt using ${technique} technique:`));
+      console.error(
+        chalk.blue(`\n📝 Rephrasing prompt using ${technique} technique:`)
+      );
       console.error(chalk.gray(`Original: ${args.prompt}`));
       console.error(chalk.green(`Rephrased: ${rephrasedPrompt}\n`));
-      
+
       return {
-        content: [{
-          type: "text",
-          text: rephrasedPrompt
-        }]
+        content: [
+          {
+            type: 'text',
+            text: rephrasedPrompt
+          }
+        ]
       };
     } catch (error) {
       return {
-        content: [{
-          type: "text",
-          text: `Error rephrasing prompt: ${error instanceof Error ? error.message : String(error)}`
-        }]
+        content: [
+          {
+            type: 'text',
+            text: `Error rephrasing prompt: ${error instanceof Error ? error.message : String(error)}`
+          }
+        ]
       };
     }
   }
 }
 
 const BETTER_PROMPT_TOOL: Tool = {
-  name: "betterprompt",
+  name: 'betterprompt',
   description: `Rephrases prompts using world-class prompt engineering techniques to make them more effective when used with AI models.
   
 This tool applies various advanced prompt engineering techniques including:
@@ -392,31 +409,31 @@ This tool applies various advanced prompt engineering techniques including:
 
 The rephrased prompts incorporate best practices from top prompt engineers at Anthropic, OpenAI, and other leading AI research institutions to achieve better results from AI models. By default, the tool uses Sequential Thinking approach which mimics how world-class prompt engineers think through problems adaptively.`,
   inputSchema: {
-    type: "object",
+    type: 'object',
     properties: {
       prompt: {
-        type: "string",
-        description: "The original prompt to rephrase"
+        type: 'string',
+        description: 'The original prompt to rephrase'
       },
       technique: {
-        type: "string",
-        description: "The prompt engineering technique to use",
+        type: 'string',
+        description: 'The prompt engineering technique to use',
         enum: [
-          "chain-of-thought", 
-          "role", 
-          "few-shot", 
-          "tree-of-thoughts", 
-          "react", 
-          "reflexion", 
-          "generate-knowledge", 
-          "prompt-chaining", 
-          "self-consistency",
-          "sequential-thinking",
-          "comprehensive"
+          'chain-of-thought',
+          'role',
+          'few-shot',
+          'tree-of-thoughts',
+          'react',
+          'reflexion',
+          'generate-knowledge',
+          'prompt-chaining',
+          'self-consistency',
+          'sequential-thinking',
+          'comprehensive'
         ]
       }
     },
-    required: ["prompt"]
+    required: ['prompt']
   }
 };
 
@@ -429,14 +446,14 @@ interface ServerConfiguration {
 // Default configuration
 const config: ServerConfiguration = {
   automaticEnhancement: true,
-  defaultTechnique: "sequential-thinking",
+  defaultTechnique: 'sequential-thinking',
   minimumPromptLength: 5
 };
 
 const server = new Server(
   {
-    name: "betterprompt-mcp",
-    version: "0.3.0",
+    name: 'betterprompt-mcp',
+    version: '0.3.0'
   },
   {
     capabilities: {
@@ -445,20 +462,20 @@ const server = new Server(
         enabled: true,
         automatic: true,
         techniques: [
-          "chain-of-thought",
-          "role",
-          "few-shot",
-          "tree-of-thoughts",
-          "react",
-          "reflexion",
-          "generate-knowledge",
-          "prompt-chaining",
-          "self-consistency",
-          "sequential-thinking",
-          "comprehensive"
+          'chain-of-thought',
+          'role',
+          'few-shot',
+          'tree-of-thoughts',
+          'react',
+          'reflexion',
+          'generate-knowledge',
+          'prompt-chaining',
+          'self-consistency',
+          'sequential-thinking',
+          'comprehensive'
         ]
-      },
-    },
+      }
+    }
   }
 );
 
@@ -478,19 +495,26 @@ server.setRequestHandler(CompleteRequestSchema, async (request) => {
       _meta: {}
     };
   }
-  
+
   // Extract the prompt from the request
   const { name, arguments: args } = request.params;
-  
+
   // If this is a completion request for a prompt, enhance it
   if (name && args) {
     try {
       // Check if the prompt meets the minimum length requirement
       const promptArg = (args as any).prompt;
-      if (promptArg && typeof promptArg === 'string' && promptArg.length >= config.minimumPromptLength) {
+      if (
+        promptArg &&
+        typeof promptArg === 'string' &&
+        promptArg.length >= config.minimumPromptLength
+      ) {
         // Automatically enhance the prompt using the configured technique
-        const enhancedPrompt = rephrasePrompt(promptArg, config.defaultTechnique);
-        
+        const enhancedPrompt = rephrasePrompt(
+          promptArg,
+          config.defaultTechnique
+        );
+
         // Return the enhanced prompt as a completion suggestion
         return {
           completion: {
@@ -503,10 +527,10 @@ server.setRequestHandler(CompleteRequestSchema, async (request) => {
       }
     } catch (error) {
       // If there's an error, just pass through without enhancement
-      console.error("Error enhancing prompt:", error);
+      console.error('Error enhancing prompt:', error);
     }
   }
-  
+
   // Default response if no enhancement was applied
   return {
     completion: {
@@ -519,19 +543,21 @@ server.setRequestHandler(CompleteRequestSchema, async (request) => {
 });
 
 server.setRequestHandler(ListToolsRequestSchema, async () => ({
-  tools: [BETTER_PROMPT_TOOL],
+  tools: [BETTER_PROMPT_TOOL]
 }));
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  if (request.params.name === "betterprompt") {
+  if (request.params.name === 'betterprompt') {
     return betterPromptServer.rephrasePromptTool(request.params.arguments);
   }
 
   return {
-    content: [{
-      type: "text",
-      text: `Unknown tool: ${request.params.name}`
-    }],
+    content: [
+      {
+        type: 'text',
+        text: `Unknown tool: ${request.params.name}`
+      }
+    ],
     isError: true
   };
 });
@@ -539,11 +565,13 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("BetterPrompt MCP Server (betterprompt-mcp) running on stdio");
-  console.error("Automatic prompt enhancement is ENABLED for all user requests");
+  console.error('BetterPrompt MCP Server (betterprompt-mcp) running on stdio');
+  console.error(
+    'Automatic prompt enhancement is ENABLED for all user requests'
+  );
 }
 
 runServer().catch((error) => {
-  console.error("Fatal error running server:", error);
+  console.error('Fatal error running server:', error);
   process.exit(1);
 });
