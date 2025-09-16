@@ -203,6 +203,12 @@ BetterPrompt MCP is a Model Context Protocol (MCP) server offering three complem
 
 Transport: stdio. MCP clients launch this server as a subprocess and exchange JSON-RPC messages over stdin/stdout. The server writes MCP messages to stdout and logs to stderr (as recommended by the MCP spec).
 
+In addition, BetterPrompt exposes a default prompt prelude that makes enhancement automatic for every user request without having to call a tool.
+
+— Prompt name: `betterprompt-default-prelude`
+
+When enabled in your MCP client, this prelude instructs the assistant to internally apply BetterPrompt techniques to each user message before answering, staying silent about the enhancement and focusing on clearer, stronger results.
+
 ---
 
 ## Tools
@@ -252,6 +258,22 @@ Output: A formatted list of original vs. enhanced prompts.
 - TypeScript 5.7+, ESM, Zod validation
 - Enhanced, colorized server logging (to stderr)
 - Hybrid approach: rule-based techniques + AI sampling
+
+---
+
+## Auto-apply to every request (no manual tool calls)
+
+Many MCP clients allow selecting a prompt template to include at the start of a chat or session. BetterPrompt publishes:
+
+- `betterprompt-default-prelude`
+
+Enable this prompt in your client’s “Prompts” or “Prelude/System” section to automatically apply BetterPrompt techniques to each user message. This keeps your workflow simple—no need to mention BetterPrompt or call tools explicitly. The assistant will adaptively apply techniques and produce higher quality answers.
+
+Notes:
+
+- The exact UI for enabling a default prompt varies by MCP client. Look for a way to select or add a “prompt”/“system”/“prelude” entry for a server.
+- This approach works across MCP clients because it relies on standard `prompts/list` and `get_prompt` support.
+- If your client doesn’t support prompts, you can still use the `betterprompt` tool explicitly.
 
 ---
 

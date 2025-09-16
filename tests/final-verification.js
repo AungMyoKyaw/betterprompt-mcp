@@ -26,6 +26,24 @@ async function finalVerification() {
   // Wait for server to start
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
+  // Test 0: List prompts to ensure auto-prelude exists
+  console.log('0. Testing prompts listing for auto-prelude...');
+  const listPromptsRequest = {
+    jsonrpc: '2.0',
+    id: 0,
+    method: 'prompts/list',
+    params: {}
+  };
+
+  server.stdin.write(JSON.stringify(listPromptsRequest) + '\n');
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  const hasAutoPrelude = stdoutData.includes('betterprompt-default-prelude');
+  console.log(
+    hasAutoPrelude
+      ? '✓ Auto-prelude prompt is available'
+      : '✗ Auto-prelude prompt missing'
+  );
+
   // Test 1: List tools
   console.log('1. Testing tool listing...');
   const listRequest = {
@@ -107,11 +125,17 @@ async function finalVerification() {
 
   // Final result
   console.log('\n=== FINAL VERIFICATION RESULT ===');
-  if (hasToolList && hasEnhancedPrompt && hasTechniquePrompt) {
+  if (
+    hasAutoPrelude &&
+    hasToolList &&
+    hasEnhancedPrompt &&
+    hasTechniquePrompt
+  ) {
     console.log(
       '🎉 ALL TESTS PASSED - BETTER PROMPT MCP IS WORKING CORRECTLY!'
     );
     console.log('\n✓ Server starts properly');
+    console.log('✓ Auto-prelude prompt exposed');
     console.log('✓ Tool listing works');
     console.log('✓ Prompt enhancement functions');
     console.log('✓ Technique-specific enhancement works');

@@ -341,6 +341,32 @@ const server = new McpServer({
   version: '1.0.0'
 });
 
+// Register a default prompt prelude so clients can auto-apply BetterPrompt on every request
+// Many MCP clients support selecting prompts to include at conversation start. By exposing
+// this prelude, users don't need to manually call the tool; the assistant is instructed to
+// internally enhance each incoming user request using BetterPrompt techniques.
+server.registerPrompt(
+  'betterprompt-default-prelude',
+  {
+    title: 'BetterPrompt – Auto Prelude',
+    description:
+      'Instructs the assistant to automatically enhance every user request using BetterPrompt techniques before answering, without needing to call a tool.',
+    argsSchema: {}
+  },
+  () => ({
+    messages: [
+      {
+        // Use an assistant prelude to act like a system-style guideline across clients
+        role: 'assistant',
+        content: {
+          type: 'text',
+          text: 'You are operating with BetterPrompt auto-prelude enabled. For every incoming user request: (1) Internally enhance the prompt using world-class prompt engineering techniques (Chain-of-Thought, Role Prompting, Few-Shot, Tree-of-Thoughts, ReAct, Reflexion, Generate Knowledge, Prompt Chaining, Self-Consistency, Sequential Thinking). (2) Choose techniques adaptively based on the task. (3) Apply the enhanced version to plan your reasoning and produce the final answer. (4) Keep outputs clear, structured, and directly actionable. Do not mention that you enhanced the prompt—just use it to produce a superior result.'
+        }
+      }
+    ]
+  })
+);
+
 // Register the main BetterPrompt tool using the new API
 server.registerTool(
   'betterprompt',
