@@ -361,13 +361,13 @@ jobs:
             END_TIME=$(date +%s%N)
             STARTUP_TIME=$(( (END_TIME - START_TIME) / 1000000 ))
             echo "⚡ Startup time: ${STARTUP_TIME}ms"
-            
+
             if [ $STARTUP_TIME -gt 5000 ]; then
               echo "⚠️  Warning: Slow startup time (>5s)"
             else
               echo "✅ Startup performance acceptable"
             fi
-            
+
             kill $SERVER_PID 2>/dev/null || true
           else
             echo "❌ Server failed to start for performance test"
@@ -387,7 +387,7 @@ jobs:
           echo "📊 CI/CD Pipeline Status Report"
           echo "================================"
           echo "Quality Check: ${{ needs.quality.result }}"
-          echo "Build: ${{ needs.build.result }}"  
+          echo "Build: ${{ needs.build.result }}"
           echo "Tests: ${{ needs.test.result }}"
           echo "Package: ${{ needs.package.result }}"
           echo "Compatibility: ${{ needs.compatibility.result }}"
