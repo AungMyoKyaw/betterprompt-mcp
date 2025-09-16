@@ -7,11 +7,20 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue?style=flat-square)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](https://opensource.org/licenses/MIT)
 
-Advanced prompt enhancement tools for MCP clients. Ships three tools (rule-based, AI-enhanced, batch) to upgrade prompts w## Troubleshooting
+---
 
-- Server doesn't start with npx proven techniques and intelligent sampling.
+## Table of Contents
 
-— Built with the MCP TypeScript SDK v1.18.0, TypeScript 5.7+, ESM, and Zod.
+- [Overview](#overview)
+- [Features](#features)
+- [Quickstart](#quickstart)
+- [Installation](#installation)
+- [Tools Summary](#tools-summary)
+- [Usage Examples](#usage-examples)
+- [Client Integration](#client-integration)
+- [Development](#development)
+- [License](#license)
+- [Support](#support)
 
 ---
 
@@ -419,6 +428,14 @@ npm run format:check
 ## License
 
 MIT
+
+---
+
+## Support
+
+For questions or issues, open an issue on [GitHub](https://github.com/AungMyoKyaw/betterprompt-mcp/issues) or contact the author.
+
+---
 
 ## Author
 
