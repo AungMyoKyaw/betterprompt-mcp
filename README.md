@@ -1,16 +1,24 @@
 # BetterPrompt MCP Server
 
-An MCP (Model Context Protocol) server that automatically rephrases all user prompts using world-class prompt engineering techniques to make them more effective when used with AI models.
+A powerful MCP (Model Context Protocol) server that provides advanced prompt engineering tools with AI model integration to enhance prompt effectiveness using world-class techniques.
 
 ## Overview
 
-The BetterPrompt server enhances all prompts automatically using various advanced prompt engineering techniques developed by leading AI research institutions including Anthropic, OpenAI, and Google DeepMind. It helps users create more effective prompts that produce better results from AI models without requiring explicit tool invocation.
+The BetterPrompt server offers three sophisticated tools for prompt enhancement:
 
-Unlike other MCP tools that need to be explicitly called, BetterPrompt automatically processes every user request, improving the underlying prompt before it's sent to the AI model. By default, the server uses Sequential Thinking approach which mimics how world-class prompt engineers think through problems adaptively.
+1. **BetterPrompt Tool**: Rule-based prompt enhancement using proven techniques
+2. **AI-Enhanced Prompt Tool**: AI-powered prompt enhancement with contextual understanding
+3. **Batch Processing Tool**: Enhance multiple prompts simultaneously
+
+Built with the latest MCP SDK v1.18.0, the server leverages cutting-edge prompt engineering techniques developed by leading AI research institutions including Anthropic, OpenAI, and Google DeepMind.
 
 ## Features
 
-The server implements the following advanced prompt engineering techniques:
+### 🛠️ Available Tools
+
+#### 1. BetterPrompt Tool (`betterprompt`)
+
+Rule-based prompt enhancement using proven techniques:
 
 - **Chain-of-Thought**: Breaking down complex requests into step-by-step reasoning
 - **Role Prompting**: Assigning expert roles to guide responses
@@ -24,11 +32,40 @@ The server implements the following advanced prompt engineering techniques:
 - **Sequential Thinking**: Applying adaptive, step-by-step thinking like expert problem solvers
 - **Comprehensive**: Combining multiple techniques for maximum effectiveness
 
+#### 2. AI-Enhanced Prompt Tool (`ai-enhance-prompt`)
+
+AI-powered prompt enhancement with model sampling:
+
+- Uses the MCP sampling API to leverage AI models for intelligent prompt enhancement
+- Contextual understanding of prompt requirements
+- Four enhancement types: `creative`, `analytical`, `technical`, `comprehensive`
+- Configurable token limits (50-2000 tokens)
+- Fallback to rule-based enhancement if AI sampling fails
+
+#### 3. Batch Processing Tool (`batch-enhance-prompts`)
+
+Process multiple prompts simultaneously:
+
+- Enhance up to 10 prompts at once
+- Apply any technique to all prompts consistently
+- Organized output with clear separation
+- Efficient batch processing for productivity
+
+### 🚀 Technical Features
+
+- **Latest MCP SDK v1.18.0**: Built with the newest Model Context Protocol features
+- **TypeScript 5.7+**: Modern TypeScript with advanced type safety
+- **ESM Compatibility**: Full ES Module support for modern JavaScript
+- **Zod Validation**: Robust input validation with detailed error messages
+- **Enhanced Logging**: Colorful, informative console output
+- **AI Model Integration**: Leverages MCP sampling for AI-powered enhancements
+
 ## Installation
 
-### From npm
+### Prerequisites
 
-The package is not yet published to npm. Please use local installation instead.
+- Node.js v18.x or higher
+- npm or yarn package manager
 
 ### Local Installation
 
@@ -51,112 +88,140 @@ npm install
 npm run build
 ```
 
-4. Link globally (optional):
+4. (Optional) Link globally for easy access:
 
 ```bash
 npm link
 ```
 
-### Using the MCP
+### Using with MCP Clients
 
-To use this MCP with an MCP-compatible client:
+To use this server with MCP-compatible clients (like Claude Desktop, MCP clients, etc.):
 
-1. Ensure the server is installed and built
-2. Run the server:
+1. Start the server:
 
 ```bash
 npx betterprompt-mcp
-```
-
-3. Connect your MCP client to the server
-
-If you've linked it globally, you can run:
-
-```bash
+# or if linked globally:
 betterprompt-mcp
 ```
 
-Once connected, BetterPrompt will automatically enhance all user prompts without requiring explicit tool invocation.
+2. Configure your MCP client to connect to the server using stdio transport
+
+3. The server will expose three tools: `betterprompt`, `ai-enhance-prompt`, and `batch-enhance-prompts`
 
 ## Usage
 
-### Running the Server
+### Tool 1: BetterPrompt (`betterprompt`)
 
-```bash
-npx betterprompt-mcp
-```
-
-Or if installed globally:
-
-```bash
-betterprompt-mcp
-```
-
-### How It Works
-
-BetterPrompt automatically processes every user request without requiring explicit invocation. When a user sends any prompt, the server:
-
-1. Intercepts the prompt before it reaches the AI model
-2. Rephrases it using advanced prompt engineering techniques
-3. Sends the enhanced prompt to the AI model
-4. Returns the result to the user
-
-Users don't need to explicitly call the `betterprompt` tool - it works automatically on all requests.
-
-### Using the Tool Explicitly
-
-While BetterPrompt works automatically, you can still explicitly call the tool with specific parameters:
-
-```json
-{
-  "prompt": "The original prompt to rephrase",
-  "technique": "The prompt engineering technique to use (optional, defaults to 'comprehensive')"
-}
-```
-
-Available techniques:
-
-- `chain-of-thought`
-- `role`
-- `few-shot`
-- `tree-of-thoughts`
-- `react`
-- `reflexion`
-- `generate-knowledge`
-- `prompt-chaining`
-- `self-consistency`
-- `sequential-thinking` (default)
-- `comprehensive`
-
-### Example Requests
-
-Since BetterPrompt works automatically, users simply interact with the AI as normal:
-
-```
-User: Explain quantum computing
-```
-
-BetterPrompt automatically enhances this request before sending it to the AI model.
-
-Explicit tool usage:
+Enhance prompts using rule-based techniques:
 
 ```json
 {
   "name": "betterprompt",
   "arguments": {
-    "prompt": "Write a marketing copy for a new smartphone",
-    "technique": "few-shot"
+    "prompt": "Write a story about a robot",
+    "technique": "role"
   }
 }
 ```
 
+**Parameters:**
+
+- `prompt` (required): The original prompt to enhance
+- `technique` (optional): Enhancement technique to use (defaults to `sequential-thinking`)
+
+**Available techniques:**
+
+- `chain-of-thought` - Step-by-step reasoning
+- `role` - Expert role assignment
+- `few-shot` - Example-based learning
+- `tree-of-thoughts` - Multiple reasoning paths
+- `react` - Reasoning and action combination
+- `reflexion` - Self-reflection and improvement
+- `generate-knowledge` - Background information generation
+- `prompt-chaining` - Sequential task breakdown
+- `self-consistency` - Multiple path consistency
+- `sequential-thinking` - Adaptive expert-level thinking (default)
+- `comprehensive` - Combined techniques
+
+### Tool 2: AI-Enhanced Prompt (`ai-enhance-prompt`)
+
+Use AI model sampling for intelligent enhancement:
+
+```json
+{
+  "name": "ai-enhance-prompt",
+  "arguments": {
+    "prompt": "Analyze this data",
+    "enhancement_type": "analytical",
+    "max_tokens": 1000
+  }
+}
+```
+
+**Parameters:**
+
+- `prompt` (required): The original prompt to enhance
+- `enhancement_type` (optional): Type of enhancement (`creative`, `analytical`, `technical`, `comprehensive`)
+- `max_tokens` (optional): Maximum tokens for AI response (50-2000, default: 800)
+
+### Tool 3: Batch Processing (`batch-enhance-prompts`)
+
+Process multiple prompts simultaneously:
+
+```json
+{
+  "name": "batch-enhance-prompts",
+  "arguments": {
+    "prompts": ["Write a poem", "Explain AI", "Create a business plan"],
+    "technique": "comprehensive"
+  }
+}
+```
+
+**Parameters:**
+
+- `prompts` (required): Array of prompts to enhance (max 10)
+- `technique` (optional): Technique to apply to all prompts (default: `sequential-thinking`)
+
+### Example Outputs
+
+**Input:** "Write a story"
+
+**Rule-based output (role technique):**
+
+```
+You are an award-winning science fiction author with a background in creative writing and literature. Write a compelling short story of approximately 800-1000 words that includes:
+
+1. A well-developed protagonist with clear motivations
+2. A engaging plot with conflict and resolution
+3. Vivid descriptive language and dialogue
+4. A specific setting that enhances the narrative
+5. A satisfying conclusion that ties together all elements
+
+The story should demonstrate sophisticated storytelling techniques including character development, pacing, and thematic depth. Target audience: Adult readers who appreciate literary fiction.
+
+Enhanced story:
+```
+
+**AI-enhanced output:**
+Uses contextual understanding to create even more sophisticated and tailored enhancements based on the AI model's analysis of the prompt requirements.
+
 ## Development
 
-The project now follows a standard directory structure:
+### Project Structure
 
-- `src/` - Source code files
-- `tests/` - Test files
-- `dist/` - Compiled output (generated by build process)
+```
+betterprompt-mcp/
+├── src/
+│   └── index.ts          # Main server implementation
+├── tests/                # Test files
+├── dist/                 # Compiled output (generated)
+├── package.json          # Dependencies and scripts
+├── tsconfig.json         # TypeScript configuration
+└── README.md             # This file
+```
 
 ### Building
 
@@ -164,18 +229,15 @@ The project now follows a standard directory structure:
 npm run build
 ```
 
-This command will:
+Compiles TypeScript to JavaScript in the `dist` directory and makes files executable.
 
-1. Compile TypeScript files from the `src` directory to JavaScript in the `dist` directory
-2. Make the output files executable
-
-### Running in Watch Mode
+### Development Mode
 
 ```bash
 npm run watch
 ```
 
-This command will continuously compile TypeScript files as they change.
+Continuously compile TypeScript files as they change for development.
 
 ### Testing
 
@@ -183,51 +245,71 @@ This command will continuously compile TypeScript files as they change.
 node tests/test.js
 ```
 
-Or for the full verification suite:
+Or run the comprehensive verification suite:
 
 ```bash
 node tests/final-verification.js
 ```
 
-### Formatting
+### Code Formatting
 
-This project uses Prettier for consistent code style.
-
-Run to format all files:
+This project uses Prettier for consistent code style:
 
 ```bash
+# Format all files
 npm run format
-```
 
-Check formatting without writing changes:
-
-```bash
+# Check formatting without changes
 npm run format:check
 ```
 
-Or for the full verification suite:
+### Dependencies
 
-```bash
-node tests/final-verification.js
-```
+**Runtime Dependencies:**
 
-## How It Works
+- `@modelcontextprotocol/sdk@1.18.0` - Latest MCP SDK
+- `chalk@^5.3.0` - Terminal styling
+- `zod@^3.24.1` - Schema validation
 
-The server implements specialized rephrasing functions for each technique:
+**Development Dependencies:**
 
-1. **Chain-of-Thought**: Rephrases prompts to include sequential reasoning steps
-2. **Role Prompting**: Assigns specific expert roles with detailed credentials
-3. **Few-Shot**: Adds sophisticated examples to demonstrate the desired approach
-4. **Tree-of-Thoughts**: Structures prompts to explore multiple reasoning paths
-5. **ReAct**: Formats prompts for interleaved reasoning and action steps
-6. **Reflexion**: Adds self-evaluation and iterative improvement components
-7. **Generate Knowledge**: Includes steps to generate relevant background information
-8. **Prompt Chaining**: Breaks complex tasks into sequential sub-prompts
-9. **Self-Consistency**: Structures prompts to generate multiple reasoning paths
-10. **Sequential Thinking**: Applies adaptive, step-by-step thinking like expert problem solvers
-11. **Comprehensive**: Combines multiple techniques for maximum effectiveness
+- `typescript@^5.7.2` - Latest TypeScript
+- `@types/node@^22.9.0` - Node.js type definitions
+- `prettier@^3.4.2` - Code formatting
+- `shx@^0.3.4` - Cross-platform shell commands
 
-Each technique is designed to leverage the latest research in prompt engineering to produce more effective prompts. By default, the server uses Sequential Thinking which mimics how world-class prompt engineers approach problems.
+## Architecture
+
+### Server Implementation
+
+Built with the latest MCP SDK v1.18.0 using the new `McpServer` API and `registerTool` methods for optimal performance and compatibility.
+
+### Prompt Enhancement Techniques
+
+The server implements specialized enhancement functions:
+
+1. **Chain-of-Thought**: Sequential reasoning steps with checkpoints
+2. **Role Prompting**: Expert role assignment with detailed credentials
+3. **Few-Shot**: Sophisticated examples demonstrating desired approaches
+4. **Tree-of-Thoughts**: Multiple reasoning path exploration
+5. **ReAct**: Interleaved reasoning and action step formatting
+6. **Reflexion**: Self-evaluation and iterative improvement components
+7. **Generate Knowledge**: Background information generation steps
+8. **Prompt Chaining**: Sequential task breakdown structure
+9. **Self-Consistency**: Multiple reasoning path consistency checks
+10. **Sequential Thinking**: Adaptive expert-level problem solving (default)
+11. **Comprehensive**: Combined multi-technique approach
+
+### AI Model Integration
+
+The `ai-enhance-prompt` tool leverages MCP's sampling API to:
+
+- Send enhancement requests to connected AI models
+- Receive intelligent, contextually-aware prompt improvements
+- Provide fallback to rule-based enhancement if AI sampling fails
+- Support configurable token limits and enhancement types
+
+This creates a hybrid approach combining rule-based techniques with AI-powered contextual understanding.
 
 ## License
 

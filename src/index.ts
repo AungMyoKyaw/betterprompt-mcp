@@ -1,15 +1,8 @@
 #!/usr/bin/env node
 
-import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-  Tool,
-  CompleteRequestSchema,
-  CompleteResultSchema
-} from '@modelcontextprotocol/sdk/types.js';
-// Fixed chalk import for ESM
+import { z } from 'zod';
 import chalk from 'chalk';
 
 /**
@@ -342,31 +335,70 @@ function rephrasePrompt(originalPrompt: string, technique: string): string {
   }
 }
 
-interface RephrasePromptArguments {
-  prompt: string;
-  technique?: string;
-}
+// Create an MCP server with enhanced capabilities
+const server = new McpServer({
+  name: 'betterprompt-mcp',
+  version: '1.0.0'
+});
 
-class BetterPromptServer {
-  public rephrasePromptTool(input: unknown): {
-    content: Array<{ type: string; text: string }>;
-  } {
+// Register the main BetterPrompt tool using the new API
+server.registerTool(
+  'betterprompt',
+  {
+    title: 'Better Prompt',
+    description: `Rephrases prompts using world-class prompt engineering techniques to make them more effective when used with AI models.
+
+This tool applies various advanced prompt engineering techniques including:
+- Chain-of-Thought: Breaking down complex requests into step-by-step reasoning
+- Role Prompting: Assigning expert roles to guide responses
+- Few-Shot Learning: Providing examples to demonstrate desired output
+- Tree-of-Thoughts: Exploring multiple reasoning paths simultaneously
+- ReAct (Reasoning + Action): Combining reasoning and action-taking
+- Reflexion: Enabling self-reflection and iterative improvement
+- Generate Knowledge: Instructing models to generate relevant background information
+- Prompt Chaining: Breaking complex tasks into sequential steps
+- Self-Consistency: Generating multiple reasoning paths and selecting the most consistent answer
+- Sequential Thinking: Applying adaptive, step-by-step thinking like expert problem solvers
+- Comprehensive: Combining multiple techniques for maximum effectiveness
+
+The rephrased prompts incorporate best practices from top prompt engineers at Anthropic, OpenAI, and other leading AI research institutions to achieve better results from AI models. By default, the tool uses Sequential Thinking approach which mimics how world-class prompt engineers think through problems adaptively.`,
+    inputSchema: {
+      prompt: z.string().describe('The original prompt to rephrase'),
+      technique: z
+        .enum([
+          'chain-of-thought',
+          'role',
+          'few-shot',
+          'tree-of-thoughts',
+          'react',
+          'reflexion',
+          'generate-knowledge',
+          'prompt-chaining',
+          'self-consistency',
+          'sequential-thinking',
+          'comprehensive'
+        ])
+        .optional()
+        .describe('The prompt engineering technique to use')
+    }
+  },
+  async ({ prompt, technique }) => {
     try {
-      const args = input as RephrasePromptArguments;
-
-      if (!args.prompt || typeof args.prompt !== 'string') {
+      if (!prompt || typeof prompt !== 'string') {
         throw new Error('Invalid prompt: must be a string');
       }
 
       // If no technique is specified, use sequential-thinking as the default
-      const technique = args.technique || 'sequential-thinking';
-      const rephrasedPrompt = rephrasePrompt(args.prompt, technique);
+      const selectedTechnique = technique || 'sequential-thinking';
+      const rephrasedPrompt = rephrasePrompt(prompt, selectedTechnique);
 
       // Log the rephrasing for debugging
       console.error(
-        chalk.blue(`\n📝 Rephrasing prompt using ${technique} technique:`)
+        chalk.blue(
+          `\n📝 Rephrasing prompt using ${selectedTechnique} technique:`
+        )
       );
-      console.error(chalk.gray(`Original: ${args.prompt}`));
+      console.error(chalk.gray(`Original: ${prompt}`));
       console.error(chalk.green(`Rephrased: ${rephrasedPrompt}\n`));
 
       return {
@@ -388,186 +420,177 @@ class BetterPromptServer {
       };
     }
   }
-}
+);
 
-const BETTER_PROMPT_TOOL: Tool = {
-  name: 'betterprompt',
-  description: `Rephrases prompts using world-class prompt engineering techniques to make them more effective when used with AI models.
-  
-This tool applies various advanced prompt engineering techniques including:
-- Chain-of-Thought: Breaking down complex requests into step-by-step reasoning
-- Role Prompting: Assigning expert roles to guide responses
-- Few-Shot Learning: Providing examples to demonstrate desired output
-- Tree-of-Thoughts: Exploring multiple reasoning paths simultaneously
-- ReAct (Reasoning + Action): Combining reasoning and action-taking
-- Reflexion: Enabling self-reflection and iterative improvement
-- Generate Knowledge: Instructing models to generate relevant background information
-- Prompt Chaining: Breaking complex tasks into sequential steps
-- Self-Consistency: Generating multiple reasoning paths and selecting the most consistent answer
-- Sequential Thinking: Applying adaptive, step-by-step thinking like expert problem solvers
-- Comprehensive: Combining multiple techniques for maximum effectiveness
-
-The rephrased prompts incorporate best practices from top prompt engineers at Anthropic, OpenAI, and other leading AI research institutions to achieve better results from AI models. By default, the tool uses Sequential Thinking approach which mimics how world-class prompt engineers think through problems adaptively.`,
-  inputSchema: {
-    type: 'object',
-    properties: {
-      prompt: {
-        type: 'string',
-        description: 'The original prompt to rephrase'
-      },
-      technique: {
-        type: 'string',
-        description: 'The prompt engineering technique to use',
-        enum: [
-          'chain-of-thought',
-          'role',
-          'few-shot',
-          'tree-of-thoughts',
-          'react',
-          'reflexion',
-          'generate-knowledge',
-          'prompt-chaining',
-          'self-consistency',
-          'sequential-thinking',
-          'comprehensive'
-        ]
-      }
-    },
-    required: ['prompt']
-  }
-};
-
-interface ServerConfiguration {
-  automaticEnhancement: boolean;
-  defaultTechnique: string;
-  minimumPromptLength: number;
-}
-
-// Default configuration
-const config: ServerConfiguration = {
-  automaticEnhancement: true,
-  defaultTechnique: 'sequential-thinking',
-  minimumPromptLength: 5
-};
-
-const server = new Server(
+// Register an AI-powered prompt enhancement tool using sampling
+server.registerTool(
+  'ai-enhance-prompt',
   {
-    name: 'betterprompt-mcp',
-    version: '0.3.0'
+    title: 'AI-Enhanced Prompt',
+    description:
+      'Uses AI model sampling to intelligently enhance prompts with contextual understanding and advanced reasoning',
+    inputSchema: {
+      prompt: z.string().describe('The original prompt to enhance using AI'),
+      enhancement_type: z
+        .enum(['creative', 'analytical', 'technical', 'comprehensive'])
+        .optional()
+        .describe('Type of enhancement to apply'),
+      max_tokens: z
+        .number()
+        .min(50)
+        .max(2000)
+        .optional()
+        .describe('Maximum tokens for AI response')
+        .default(800)
+    }
   },
-  {
-    capabilities: {
-      tools: {},
-      promptEnhancement: {
-        enabled: true,
-        automatic: true,
-        techniques: [
-          'chain-of-thought',
-          'role',
-          'few-shot',
-          'tree-of-thoughts',
-          'react',
-          'reflexion',
-          'generate-knowledge',
-          'prompt-chaining',
-          'self-consistency',
-          'sequential-thinking',
-          'comprehensive'
+  async ({ prompt, enhancement_type = 'comprehensive', max_tokens = 800 }) => {
+    try {
+      // Use MCP sampling to get AI-powered enhancement
+      const enhancementPrompt = `You are a world-class prompt engineer with expertise in advanced prompt engineering techniques from top AI research labs like Anthropic, OpenAI, and Google DeepMind.
+
+Your task is to enhance the following prompt using ${enhancement_type} approach:
+
+Original prompt: "${prompt}"
+
+Please enhance this prompt by:
+1. Analyzing the intent and requirements
+2. Applying appropriate prompt engineering techniques
+3. Adding clarity, specificity, and structure
+4. Including relevant context and constraints
+5. Ensuring optimal LLM interaction patterns
+
+Enhanced prompt:`;
+
+      const response = await server.server.createMessage({
+        messages: [
+          {
+            role: 'user',
+            content: {
+              type: 'text',
+              text: enhancementPrompt
+            }
+          }
+        ],
+        maxTokens: max_tokens
+      });
+
+      const enhancedText =
+        response.content.type === 'text'
+          ? response.content.text
+          : 'Unable to generate enhanced prompt';
+
+      // Log the AI enhancement for debugging
+      console.error(
+        chalk.magenta(
+          `\n🤖 AI-Enhanced prompt using ${enhancement_type} approach:`
+        )
+      );
+      console.error(chalk.gray(`Original: ${prompt}`));
+      console.error(chalk.cyan(`Enhanced: ${enhancedText}\n`));
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: enhancedText
+          }
         ]
-      }
+      };
+    } catch (error) {
+      // Fallback to rule-based enhancement if AI sampling fails
+      console.error(
+        'AI enhancement failed, falling back to rule-based enhancement:',
+        error
+      );
+      const fallbackPrompt = rephrasePrompt(prompt, 'comprehensive');
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `AI enhancement unavailable. Fallback enhancement:\n\n${fallbackPrompt}`
+          }
+        ]
+      };
     }
   }
 );
 
-const betterPromptServer = new BetterPromptServer();
-
-// Handle completion requests to automatically enhance prompts
-server.setRequestHandler(CompleteRequestSchema, async (request) => {
-  // Check if automatic enhancement is enabled
-  if (!config.automaticEnhancement) {
-    // If automatic enhancement is disabled, just pass through the request
-    return {
-      completion: {
-        values: [],
-        total: 0,
-        hasMore: false
-      },
-      _meta: {}
-    };
-  }
-
-  // Extract the prompt from the request
-  const { name, arguments: args } = request.params;
-
-  // If this is a completion request for a prompt, enhance it
-  if (name && args) {
+// Register a batch processing tool for multiple prompts
+server.registerTool(
+  'batch-enhance-prompts',
+  {
+    title: 'Batch Enhance Prompts',
+    description: 'Enhance multiple prompts at once using specified technique',
+    inputSchema: {
+      prompts: z
+        .array(z.string())
+        .min(1)
+        .max(10)
+        .describe('Array of prompts to enhance (max 10)'),
+      technique: z
+        .enum([
+          'chain-of-thought',
+          'role',
+          'few-shot',
+          'tree-of-thoughts',
+          'react',
+          'reflexion',
+          'generate-knowledge',
+          'prompt-chaining',
+          'self-consistency',
+          'sequential-thinking',
+          'comprehensive'
+        ])
+        .optional()
+        .describe('The prompt engineering technique to use for all prompts')
+    }
+  },
+  async ({ prompts, technique = 'sequential-thinking' }) => {
     try {
-      // Check if the prompt meets the minimum length requirement
-      const promptArg = (args as any).prompt;
-      if (
-        promptArg &&
-        typeof promptArg === 'string' &&
-        promptArg.length >= config.minimumPromptLength
-      ) {
-        // Automatically enhance the prompt using the configured technique
-        const enhancedPrompt = rephrasePrompt(
-          promptArg,
-          config.defaultTechnique
-        );
+      const enhancedPrompts = prompts.map((prompt, index) => {
+        const enhanced = rephrasePrompt(prompt, technique);
+        return `Prompt ${index + 1}:
+Original: ${prompt}
+Enhanced: ${enhanced}
+---`;
+      });
 
-        // Return the enhanced prompt as a completion suggestion
-        return {
-          completion: {
-            values: [enhancedPrompt],
-            total: 1,
-            hasMore: false
-          },
-          _meta: {}
-        };
-      }
+      console.error(
+        chalk.blue(
+          `\n📦 Batch enhanced ${prompts.length} prompts using ${technique} technique`
+        )
+      );
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: enhancedPrompts.join('\n\n')
+          }
+        ]
+      };
     } catch (error) {
-      // If there's an error, just pass through without enhancement
-      console.error('Error enhancing prompt:', error);
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `Error in batch enhancement: ${error instanceof Error ? error.message : String(error)}`
+          }
+        ]
+      };
     }
   }
+);
 
-  // Default response if no enhancement was applied
-  return {
-    completion: {
-      values: [],
-      total: 0,
-      hasMore: false
-    },
-    _meta: {}
-  };
-});
-
-server.setRequestHandler(ListToolsRequestSchema, async () => ({
-  tools: [BETTER_PROMPT_TOOL]
-}));
-
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  if (request.params.name === 'betterprompt') {
-    return betterPromptServer.rephrasePromptTool(request.params.arguments);
-  }
-
-  return {
-    content: [
-      {
-        type: 'text',
-        text: `Unknown tool: ${request.params.name}`
-      }
-    ],
-    isError: true
-  };
-});
-
+// Start the server
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error('BetterPrompt MCP Server (betterprompt-mcp) running on stdio');
+  console.error('🚀 BetterPrompt MCP Server v1.0.0 running on stdio');
+  console.error('📝 Enhanced prompt engineering with AI model integration');
   console.error(
-    'Automatic prompt enhancement is ENABLED for all user requests'
+    '🔧 Available tools: betterprompt, ai-enhance-prompt, batch-enhance-prompts'
   );
 }
 
