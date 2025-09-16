@@ -5,6 +5,30 @@
   "license": "MIT",
   "type": "module",
   "author": "Aung Myo Kyaw (https://github.com/AungMyoKyaw)",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "prompt-engineering",
+    "ai",
+    "typescript",
+    "prompt-enhancement",
+    "llm",
+    "claude",
+    "vscode",
+    "cursor"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AungMyoKyaw/betterprompt-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AungMyoKyaw/betterprompt-mcp/issues"
+  },
+  "homepage": "https://github.com/AungMyoKyaw/betterprompt-mcp#readme",
   "bin": {
     "betterprompt-mcp": "dist/index.js"
   },
@@ -16,7 +40,15 @@
     "prepare": "npm run build",
     "watch": "tsc --watch",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test": "node tests/test.js",
+    "test:comprehensive": "node tests/final-verification.js",
+    "test:all": "npm run test && npm run test:comprehensive",
+    "type-check": "tsc --noEmit",
+    "lint": "echo 'Lint check - consider adding ESLint for better code quality'",
+    "prepack": "npm run build",
+    "ci": "npm ci && npm run type-check && npm run format:check && npm run build && npm run test:all",
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.18.0",

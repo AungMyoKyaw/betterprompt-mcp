@@ -1,0 +1,118 @@
+name: Release
+
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+      - name: 🚀 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: 📦 Install Dependencies
+        run: npm ci --no-audit
+
+      - name: 🏗️ Build Project
+        run: npm run build
+
+      - name: 🧪 Run Tests
+        run: npm run test:all
+
+      - name: 📋 Verify Package
+        run: |
+          npm pack --dry-run
+          echo "Package contents verified"
+
+      - name: 🏷️ Extract Version Info
+        id: version
+        run: |
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            VERSION=${GITHUB_REF#refs/tags/v}
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "is_tag=true" >> $GITHUB_OUTPUT
+          else
+            VERSION=$(node -p "require('./package.json').version")
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "is_tag=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 📦 Create Package
+        run: npm pack
+
+      - name: 🚀 Create GitHub Release
+        if: steps.version.outputs.is_tag == 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body: |
+            ## Changes in ${{ github.ref_name }}
+
+            🎉 **BetterPrompt MCP Server v${{ steps.version.outputs.version }}**
+
+            ### What's New
+            - Check the [commit history](https://github.com/AungMyoKyaw/betterprompt-mcp/commits/${{ github.ref_name }}) for detailed changes
+
+            ### Installation
+            ```bash
+            npx -y betterprompt-mcp@${{ steps.version.outputs.version }}
+            ```
+
+            ### MCP Client Configuration
+            ```json
+            {
+              "mcpServers": {
+                "betterprompt": {
+                  "command": "npx",
+                  "args": ["-y", "betterprompt-mcp@${{ steps.version.outputs.version }}"]
+                }
+              }
+            }
+            ```
+
+            ### Verification
+            ```bash
+            node -e "console.log(require('betterprompt-mcp/package.json').version)"
+            ```
+          draft: false
+          prerelease: ${{ contains(steps.version.outputs.version, 'nightly') || contains(steps.version.outputs.version, 'alpha') || contains(steps.version.outputs.version, 'beta') }}
+
+      - name: 📤 Upload Release Asset
+        if: steps.version.outputs.is_tag == 'true'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./betterprompt-mcp-${{ steps.version.outputs.version }}.tgz
+          asset_name: betterprompt-mcp-${{ steps.version.outputs.version }}.tgz
+          asset_content_type: application/gzip
+
+      - name: 📊 Release Summary
+        run: |
+          echo "## 🎉 Release Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tag**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Package**: betterprompt-mcp-${{ steps.version.outputs.version }}.tgz" >> $GITHUB_STEP_SUMMARY
+          echo "- **Installation**: \`npx -y betterprompt-mcp@${{ steps.version.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
