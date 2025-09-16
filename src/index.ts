@@ -587,7 +587,7 @@ Enhanced: ${enhanced}
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error('🚀 BetterPrompt MCP Server v1.0.0 running on stdio');
+  console.error('🚀 BetterPrompt MCP Server v0.1.0 running on stdio');
   console.error('📝 Enhanced prompt engineering with AI model integration');
   console.error(
     '🔧 Available tools: betterprompt, ai-enhance-prompt, batch-enhance-prompts'
