@@ -1,6 +1,6 @@
 {
   "name": "betterprompt-mcp",
-  "version": "0.1.0-nightly.20250916",
+  "version": "0.1.0-nightly.20250917",
   "description": "MCP server for automatic prompt enhancement using world-class prompt engineering techniques",
   "license": "MIT",
   "type": "module",
