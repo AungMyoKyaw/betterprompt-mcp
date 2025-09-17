@@ -1,6 +1,6 @@
 {
   "name": "betterprompt-mcp",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "MCP server that converts user requests to AI-enhanced prompts using world-class prompt engineering techniques",
   "license": "MIT",
   "type": "module",

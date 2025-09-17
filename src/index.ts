@@ -8,7 +8,7 @@ import chalk from 'chalk';
 // Create an MCP server
 const server = new McpServer({
   name: 'betterprompt-mcp',
-  version: '1.0.0'
+  version: '0.1.1'
 });
 
 // Register a default prompt prelude so clients can auto-apply BetterPrompt on every request
@@ -114,7 +114,7 @@ Enhanced prompt:`;
 async function runServer() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error('🚀 BetterPrompt MCP Server v1.0.0 running on stdio');
+  console.error('🚀 BetterPrompt MCP Server v0.1.1 running on stdio');
   console.error('📝 Converting user requests to AI-enhanced prompts');
   console.error('🔧 Available tool: enhance-prompt');
 }
