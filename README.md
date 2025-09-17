@@ -265,6 +265,122 @@ AI-powered enhancement using MCP sampling API with 4K token limit.
 }
 ```
 
+### `enhance-code-prompt`
+
+Specialized enhancement for code generation prompts.
+
+**Input:**
+
+- `prompt` (string, required) - The user request for code generation
+- `language` (string, optional) - Programming language for the code (e.g., "JavaScript", "Python")
+- `complexity` (string, optional) - Desired complexity level (e.g., "simple", "intermediate", "advanced")
+
+**Output:** An AI-enhanced code prompt with detailed requirements and context.
+
+**Example Usage:**
+
+```json
+{
+  "name": "enhance-code-prompt",
+  "arguments": {
+    "prompt": "Write a Python function to sort a list of numbers",
+    "language": "Python",
+    "complexity": "advanced"
+  }
+}
+```
+
+### `enhance-analysis-prompt`
+
+Specialized enhancement for analysis prompts.
+
+**Input:**
+
+- `prompt` (string, required) - The user request for analysis
+- `type` (string, optional) - Type of analysis (e.g., "data", "text", "image")
+- `details` (string, optional) - Additional details or requirements
+
+**Output:** An AI-enhanced analysis prompt with structured guidance.
+
+**Example Usage:**
+
+```json
+{
+  "name": "enhance-analysis-prompt",
+  "arguments": {
+    "prompt": "Analyze the impact of climate change on polar bears",
+    "type": "text",
+    "details": "Focus on habitat loss and food chain disruption"
+  }
+}
+```
+
+### `get-template`
+
+Retrieve prompt engineering templates for various tasks.
+
+**Input:**
+
+- `category` (string, optional) - Category of template (e.g., "code", "analysis", "creative", "research")
+
+**Output:** A prompt engineering template for the specified category.
+
+**Example Usage:**
+
+```json
+{
+  "name": "get-template",
+  "arguments": {
+    "category": "code"
+  }
+}
+```
+
+### `get-best-practices`
+
+Get comprehensive best practices guide for prompt engineering.
+
+**Output:** A detailed guide on best practices for writing effective prompts.
+
+**Example Usage:**
+
+```json
+{
+  "name": "get-best-practices",
+  "arguments": {}
+}
+```
+
+### `server-stats`
+
+View server performance statistics.
+
+**Output:** Current server statistics including uptime, memory usage, and cache status.
+
+**Example Usage:**
+
+```json
+{
+  "name": "server-stats",
+  "arguments": {}
+}
+```
+
+### `clear-cache`
+
+Clear enhancement cache.
+
+**Output:** Confirmation of cache clearance.
+
+**Example Usage:**
+
+```json
+{
+  "name": "clear-cache",
+  "arguments": {}
+}
+```
+
 ---
 
 ## Usage Examples
@@ -292,7 +408,7 @@ AI-powered enhancement using MCP sampling API with 4K token limit.
 
 ```json
 {
-  "name": "enhance-prompt",
+  "name": "enhance-code-prompt",
   "arguments": {
     "prompt": "Create a React component for a todo list"
   }
@@ -302,6 +418,25 @@ AI-powered enhancement using MCP sampling API with 4K token limit.
 **Enhanced Result:**
 
 > "Build a React component for a todo list application with the following features: add new todos, mark as complete, delete items, and filter by status (all/active/completed). Use modern React hooks (useState, useEffect) and ensure accessible HTML. Include proper TypeScript typing, CSS styling, and error handling. Provide a clean, user-friendly interface with responsive design."
+
+### Analysis Enhancement
+
+**Request:**
+
+```json
+{
+  "name": "enhance-analysis-prompt",
+  "arguments": {
+    "prompt": "Analyze the sales data for 2023",
+    "type": "data",
+    "details": "Focus on trends, anomalies, and predictions"
+  }
+}
+```
+
+**Enhanced Result:**
+
+> "Perform a detailed analysis of the sales data for 2023. Identify key trends, seasonal patterns, and anomalies. Provide predictions for the next quarter based on historical data. Use visualizations like charts and graphs to illustrate findings. Ensure the analysis is actionable with clear recommendations."
 
 ---
 
@@ -446,3 +581,71 @@ For questions or issues, open an issue on [GitHub](https://github.com/AungMyoKya
 ## Author
 
 Aung Myo Kyaw (https://github.com/AungMyoKyaw)
+
+---
+
+# New Features in v0.2.0
+
+## Advanced Tools
+
+- `enhance-prompt`: General prompt enhancement with category support
+- `enhance-code-prompt`: Specialized code generation enhancement
+- `enhance-analysis-prompt`: Specialized analysis enhancement
+- `get-template`: Retrieve prompt engineering templates
+- `get-best-practices`: Get comprehensive best practices guide
+- `server-stats`: View server performance statistics
+- `clear-cache`: Clear enhancement cache
+
+## Resources
+
+- Exposes prompt engineering templates and best practices as MCP resources
+- Access templates for code, analysis, creative, and research tasks
+
+## Prompts
+
+- Multiple expert-mode prompts for code, analysis, and creative tasks
+- Auto-prelude prompt for seamless enhancement
+
+## Configuration
+
+- Customizable max tokens, timeout, retry attempts, caching size/TTL
+
+## Diagnostics
+
+- Server statistics tool for uptime, memory, cache, and configuration
+- Utility to clear cache and monitor performance
+
+## Error Handling & Logging
+
+- Robust error handling with retry logic and exponential backoff
+- Structured logging to stderr for debugging and monitoring
+
+## Usage Example
+
+```json
+{
+  "name": "enhance-code-prompt",
+  "arguments": {
+    "prompt": "Write a Python function to sort a list of numbers",
+    "language": "Python",
+    "complexity": "advanced"
+  }
+}
+```
+
+## Edge Cases
+
+- Handles timeouts, invalid input, and cache misses gracefully
+- Fallback enhancement if all attempts fail
+
+## How to Test
+
+Run:
+
+```bash
+npm run test:comprehensive
+```
+
+All features and edge cases are covered in the test suite.
+
+---
