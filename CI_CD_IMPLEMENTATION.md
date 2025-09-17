@@ -125,3 +125,48 @@
 ## ✅ All Todo Items Completed Successfully!
 
 The BetterPrompt MCP Server now has a world-class CI/CD pipeline that ensures quality, security, and reliability with every change. 🎉
+
+## 🟢 Dual Publish to npm: Latest & Nightly
+
+To publish both 'latest' and 'nightly' releases to npm:
+
+1. **Verify npm authentication:**
+
+   ```sh
+   npm whoami
+   ```
+
+   If not authenticated, run:
+
+   ```sh
+   npm login
+   ```
+
+2. **Publish Nightly Release:**
+   - Edit `package.json` version to nightly format (e.g., `0.2.0-nightly.YYYYMMDD`).
+   - Run:
+
+   ```sh
+   npm publish --tag nightly
+   ```
+
+3. **Publish Latest Release:**
+   - Restore `package.json` version to stable (e.g., `0.2.0`).
+   - Run:
+
+   ```sh
+   npm publish --tag latest
+   ```
+
+4. **Verify Tags:**
+
+   ```sh
+   npm view betterprompt-mcp dist-tags
+   ```
+
+   Should show both `latest` and `nightly` tags.
+
+5. **Automate:**
+   - Consider scripting this process for CI/CD using npm scripts or GitHub Actions.
+
+---
