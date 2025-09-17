@@ -57,6 +57,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.9.0",
+    "audit-ci": "^7.1.0",
+    "depcheck": "^1.4.7",
     "prettier": "^3.4.2",
     "shx": "^0.3.4",
     "typescript": "^5.7.2"
