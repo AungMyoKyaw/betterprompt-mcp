@@ -56,8 +56,8 @@ async function finalVerification() {
   server.stdin.write(JSON.stringify(listRequest) + '\n');
   await new Promise((resolve) => setTimeout(resolve, 500));
 
-  // Check if we got a response with the betterprompt tool
-  const hasToolList = stdoutData.includes('betterprompt');
+  // Check if we got a response with the enhance-prompt tool
+  const hasToolList = stdoutData.includes('enhance-prompt');
   console.log(hasToolList ? '✓ Tool listing works' : '✗ Tool listing failed');
 
   // Test 2: Call the tool
@@ -67,7 +67,7 @@ async function finalVerification() {
     id: 2,
     method: 'tools/call',
     params: {
-      name: 'betterprompt',
+      name: 'enhance-prompt',
       arguments: {
         prompt: 'Write a function to calculate fibonacci numbers'
       }
@@ -81,8 +81,7 @@ async function finalVerification() {
 
   // Check if we got an enhanced prompt
   const hasEnhancedPrompt =
-    stdoutData.includes('You are a world-class prompt engineer') &&
-    stdoutData.includes('enhance the prompt') &&
+    (stdoutData.includes('enhanced') || stdoutData.includes('Enhanced')) &&
     stdoutData.includes('fibonacci numbers');
   console.log(
     hasEnhancedPrompt
@@ -90,47 +89,12 @@ async function finalVerification() {
       : '✗ Prompt enhancement failed'
   );
 
-  // Test 3: Test with specific technique
-  console.log('\n3. Testing with specific technique...');
-  const techniqueRequest = {
-    jsonrpc: '2.0',
-    id: 3,
-    method: 'tools/call',
-    params: {
-      name: 'betterprompt',
-      arguments: {
-        prompt: 'Explain quantum computing',
-        technique: 'chain-of-thought'
-      }
-    }
-  };
-
-  // Clear previous output
-  stdoutData = '';
-  server.stdin.write(JSON.stringify(techniqueRequest) + '\n');
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  // Check if we got technique-specific enhancement
-  const hasTechniquePrompt =
-    stdoutData.includes('Chain-of-Thought reasoning') &&
-    stdoutData.includes('quantum computing');
-  console.log(
-    hasTechniquePrompt
-      ? '✓ Technique-specific enhancement works'
-      : '✗ Technique-specific enhancement failed'
-  );
-
   // Close server
   server.kill();
 
   // Final result
   console.log('\n=== FINAL VERIFICATION RESULT ===');
-  if (
-    hasAutoPrelude &&
-    hasToolList &&
-    hasEnhancedPrompt &&
-    hasTechniquePrompt
-  ) {
+  if (hasAutoPrelude && hasToolList && hasEnhancedPrompt) {
     console.log(
       '🎉 ALL TESTS PASSED - BETTER PROMPT MCP IS WORKING CORRECTLY!'
     );
@@ -138,7 +102,6 @@ async function finalVerification() {
     console.log('✓ Auto-prelude prompt exposed');
     console.log('✓ Tool listing works');
     console.log('✓ Prompt enhancement functions');
-    console.log('✓ Technique-specific enhancement works');
     console.log('✓ JSON-RPC communication is functional');
     return true;
   } else {

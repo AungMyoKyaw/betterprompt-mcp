@@ -12,15 +12,50 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Features](#features)
+- [Why BetterPrompt?](#why-betterprompt)
 - [Quickstart](#quickstart)
 - [Installation](#installation)
 - [Tools Summary](#tools-summary)
 - [Usage Examples](#usage-examples)
 - [Client Integration](#client-integration)
+- [Auto-Apply Enhancement](#auto-apply-enhancement)
 - [Development](#development)
+- [Best Practices](#best-practices)
+- [Troubleshooting](#troubleshooting)
 - [License](#license)
 - [Support](#support)
+
+---
+
+## Overview
+
+BetterPrompt MCP is a Model Context Protocol (MCP) server that enhances your AI interactions by automatically transforming your prompts into more effective versions using world-class prompt engineering techniques.
+
+Instead of spending time crafting perfect prompts, BetterPrompt does the heavy lifting for you - converting simple requests into structured, context-rich instructions that yield better results from AI models.
+
+### Before & After Example
+
+**Without BetterPrompt:**
+
+> "Write a function to calculate fibonacci numbers"
+
+**With BetterPrompt Enhancement:**
+
+> "Create a JavaScript function that calculates Fibonacci numbers using an efficient algorithm. Include error handling for invalid inputs, support for both iterative and recursive approaches, and clear documentation with time complexity analysis. Format the response with clear code examples and explanations."
+
+---
+
+## Why BetterPrompt?
+
+AI models respond much better to well-structured prompts with clear context and instructions. BetterPrompt applies proven prompt engineering techniques to transform your requests into optimal formats that:
+
+- ✅ **Increase accuracy** - More precise responses with fewer hallucinations
+- ✅ **Improve structure** - Organized, actionable output formats
+- ✅ **Add context** - Relevant background information for better understanding
+- ✅ **Define constraints** - Clear boundaries and requirements
+- ✅ **Specify success criteria** - Know what constitutes a good response
+
+BetterPrompt works with any MCP-compatible client, including VS Code, Cursor, Claude Desktop, LM Studio, and many others.
 
 ---
 
@@ -35,6 +70,11 @@ npx -y betterprompt-mcp
 Or install directly into VS Code (opens a prompt to add the MCP server):
 
 [<img src="https://img.shields.io/badge/VS_Code-VS_Code?style=flat-square&label=Install%20Server&color=0098FF" alt="Install in VS Code">](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522betterprompt%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522betterprompt-mcp%2522%255D%257D)
+
+Once installed, you can either:
+
+1. **Call the enhancement tool explicitly** - Use the `enhance-prompt` tool when you want to improve a specific prompt
+2. **Enable auto-enhancement** - Configure your client to automatically enhance every prompt (see [Auto-Apply Enhancement](#auto-apply-enhancement))
 
 ---
 
@@ -202,192 +242,158 @@ Create or edit `~/.config/opencode/opencode.json`:
 
 ---
 
-## Overview
-
-BetterPrompt MCP is a Model Context Protocol (MCP) server offering three complementary tools:
-
-1. BetterPrompt (rule-based enhancement)
-2. AI-Enhanced Prompt (sampling-powered enhancement)
-3. Batch Enhance Prompts (process multiple prompts at once)
-
-Transport: stdio. MCP clients launch this server as a subprocess and exchange JSON-RPC messages over stdin/stdout. The server writes MCP messages to stdout and logs to stderr (as recommended by the MCP spec).
-
-In addition, BetterPrompt exposes a default prompt prelude that makes enhancement automatic for every user request without having to call a tool.
-
-— Prompt name: `betterprompt-default-prelude`
-
-When enabled in your MCP client, this prelude instructs the assistant to internally apply BetterPrompt techniques to each user message before answering, staying silent about the enhancement and focusing on clearer, stronger results.
-
----
-
 ## Tools
 
-### 1) `betterprompt`
+### `enhance-prompt`
 
-Rule-based enhancement using established techniques:
+AI-powered enhancement using MCP sampling API with 4K token limit.
 
-- Chain-of-Thought, Role Prompting, Few-Shot, Tree-of-Thoughts
-- ReAct, Reflexion, Generate Knowledge, Prompt Chaining
-- Self-Consistency, Sequential Thinking (default), Comprehensive
+**Input:**
 
-Input:
+- `prompt` (string, required) - The user request to convert to an AI-enhanced prompt
 
-- `prompt` (string, required)
-- `technique` (enum, optional)
+**Output:** An AI-enhanced prompt with structure, context, and clear instructions.
 
-Output: A rewritten prompt with structure, context, and clear instructions.
-
-### 2) `ai-enhance-prompt`
-
-AI-powered enhancement using MCP sampling API with configurable style and token limit.
-
-Input:
-
-- `prompt` (string, required)
-- `enhancement_type` (enum: creative | analytical | technical | comprehensive, optional)
-
-Fallback: If sampling isn’t available, it falls back to rule-based “comprehensive” enhancement.
-
-### 3) `batch-enhance-prompts`
-
-Enhance multiple prompts in one call.
-
-Input:
-
-- `prompts` (string[], 1–10, required)
-- `technique` (enum, optional; default `sequential-thinking`)
-
-Output: A formatted list of original vs. enhanced prompts.
-
----
-
-## Features
-
-- MCP TypeScript SDK v1.18.0 with stdio transport
-- TypeScript 5.7+, ESM, Zod validation
-- Enhanced, colorized server logging (to stderr)
-- Hybrid approach: rule-based techniques + AI sampling
-
----
-
-## Auto-apply to every request (no manual tool calls)
-
-Many MCP clients allow selecting a prompt template to include at the start of a chat or session. BetterPrompt publishes:
-
-- `betterprompt-default-prelude`
-
-Enable this prompt in your client’s “Prompts” or “Prelude/System” section to automatically apply BetterPrompt techniques to each user message. This keeps your workflow simple—no need to mention BetterPrompt or call tools explicitly. The assistant will adaptively apply techniques and produce higher quality answers.
-
-Notes:
-
-- The exact UI for enabling a default prompt varies by MCP client. Look for a way to select or add a “prompt”/“system”/“prelude” entry for a server.
-- This approach works across MCP clients because it relies on standard `prompts/list` and `get_prompt` support.
-- If your client doesn’t support prompts, you can still use the `betterprompt` tool explicitly.
-
----
-
-## Installation
-
-Prerequisites:
-
-- Node.js v18 or newer
-- npm or yarn
-
----
-
-## Client Integration
-
-### Claude Desktop (macOS)
-
-Add to `claude_desktop_config.json`:
+**Example Usage:**
 
 ```json
 {
-  "mcpServers": {
-    "betterprompt": {
-      "command": "npx",
-      "args": ["-y", "betterprompt-mcp"]
-    }
+  "name": "enhance-prompt",
+  "arguments": {
+    "prompt": "Write a function to calculate fibonacci numbers"
   }
 }
 ```
-
-Then restart Claude Desktop. If the server doesn’t appear, tail logs:
-
-```bash
-tail -n 20 -F ~/Library/Logs/Claude/mcp*.log
-```
-
-### VS Code
-
-Install via CLI:
-
-```bash
-code --add-mcp '{"name":"betterprompt","command":"npx","args":["-y","betterprompt-mcp"]}'
-```
-
-### Other MCP clients (Cursor, Goose, LM Studio, Qodo Gen, etc.)
-
-Follow each client’s standard MCP config pattern. See MCP Quickstart below.
 
 ---
 
 ## Usage Examples
 
-### Rule-based enhancement
+### Basic Prompt Enhancement
+
+**Request:**
 
 ```json
 {
-  "name": "betterprompt",
+  "name": "enhance-prompt",
   "arguments": {
-    "prompt": "Write a story about a robot",
-    "technique": "role"
+    "prompt": "Explain quantum computing"
   }
 }
 ```
 
-### AI-enhanced prompt
+**Enhanced Result:**
+
+> "Provide a comprehensive explanation of quantum computing for a technical audience. Cover fundamental concepts including qubits, superposition, entanglement, and quantum gates. Compare classical vs. quantum computing approaches. Include real-world applications and current limitations. Structure the response with clear headings and examples."
+
+### Code Generation Enhancement
+
+**Request:**
 
 ```json
 {
-  "name": "ai-enhance-prompt",
+  "name": "enhance-prompt",
   "arguments": {
-    "prompt": "Analyze this data",
-    "enhancement_type": "analytical"
+    "prompt": "Create a React component for a todo list"
   }
 }
 ```
 
-### Batch processing
+**Enhanced Result:**
 
-```json
-{
-  "name": "batch-enhance-prompts",
-  "arguments": {
-    "prompts": ["Write a poem", "Explain AI", "Create a business plan"],
-    "technique": "comprehensive"
-  }
-}
-```
+> "Build a React component for a todo list application with the following features: add new todos, mark as complete, delete items, and filter by status (all/active/completed). Use modern React hooks (useState, useEffect) and ensure accessible HTML. Include proper TypeScript typing, CSS styling, and error handling. Provide a clean, user-friendly interface with responsive design."
 
 ---
 
-## Verify locally
+## Auto-Apply Enhancement
 
-Smoke tests start the server via stdio and exercise tool listing and calls.
+BetterPrompt offers a unique feature that automatically enhances every prompt without requiring manual tool calls.
 
-```bash
-# Build first
-npm run build
+### How it works
 
-# Basic test
-node tests/test.js
+When you enable the `betterprompt-default-prelude` in your MCP client:
 
-# Comprehensive verification
-node tests/final-verification.js
-```
+1. Every user request is internally enhanced using world-class prompt engineering techniques
+2. The assistant applies the enhanced version to plan its reasoning
+3. The assistant produces a superior result without mentioning the enhancement process
+4. Your workflow remains simple - no need to call tools explicitly
 
-Expected: tests print MCP responses and confirm tools are available and callable.
+### Enabling Auto-Enhancement
+
+Many MCP clients allow selecting a prompt template to include at the start of a chat or session. BetterPrompt publishes:
+
+- `betterprompt-default-prelude`
+
+Enable this prompt in your client's "Prompts" or "Prelude/System" section to automatically apply BetterPrompt techniques to each user message.
+
+**Notes:**
+
+- The exact UI for enabling a default prompt varies by MCP client
+- Look for a way to select or add a "prompt"/"system"/"prelude" entry for a server
+- This approach works across MCP clients because it relies on standard `prompts/list` and `get_prompt` support
+
+---
+
+## Best Practices
+
+### Writing Prompts for BetterPrompt
+
+To get the most out of BetterPrompt, consider these tips when crafting your initial prompts:
+
+1. **Be specific about the task**: Instead of "explain databases", try "explain database normalization for a beginner"
+2. **Mention the audience**: Include who the content is for (developers, managers, students, etc.)
+3. **Specify the format**: Request specific output formats when helpful (bullet points, code, tables, etc.)
+4. **Include constraints**: Mention any limitations like word count, technical level, or specific requirements
+5. **State the purpose**: Explain what you'll use the information for
+
+### When to Use Manual vs. Auto Enhancement
+
+**Use Manual Enhancement (`enhance-prompt` tool) when:**
+
+- You want to see the enhanced prompt before using it
+- You're working on critical tasks where you want to review the enhancement
+- You only need to enhance specific prompts occasionally
+
+**Use Auto Enhancement (prelude) when:**
+
+- You want all prompts enhanced without extra steps
+- You're doing exploratory work or brainstorming
+- You prefer a seamless experience without manual tool calls
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+**Server not starting**
+
+- Ensure you have Node.js >= 18 installed
+- Try running `npx -y betterprompt-mcp` directly in your terminal
+- Check that your MCP client supports stdio transport
+
+**Tool not appearing in client**
+
+- Verify the server is running correctly
+- Check your client's MCP configuration
+- Restart your MCP client after adding the server
+
+**Auto-prelude not working**
+
+- Confirm your client supports the `prompts/list` and `prompts/get` MCP methods
+- Check that you've correctly enabled the `betterprompt-default-prelude` prompt
+- Some clients may require a restart after enabling prompts
+
+### Debugging
+
+BetterPrompt logs enhancement activities to stderr. If you're having issues:
+
+1. Check your client's MCP logs for error messages
+2. Run the server directly to see console output:
+   ```bash
+   npx -y betterprompt-mcp
+   ```
+3. Look for the magenta "🤖 AI-Enhanced prompt" messages in the logs
 
 ---
 
