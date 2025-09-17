@@ -1,6 +1,6 @@
 # BetterPrompt MCP Server
 
-[![CI/CD Pipeline](https://github.com/AungMyoKyaw/betterprompt-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/AungMyoKyaw/betterprompt-mcp/actions/workflows/ci.yml)
+[![CI/CD Pipeline](https://github.com/AungMyoKyaw/betterprompt-mcp/actions/workflows/ci.yml/badge.svg?style=flat-square)](https://github.com/AungMyoKyaw/betterprompt-mcp/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/betterprompt-mcp?style=flat-square)](https://www.npmjs.com/package/betterprompt-mcp)
 [![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-brightgreen?style=flat-square)](https://modelcontextprotocol.io/)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen?style=flat-square)](https://nodejs.org/)
@@ -29,17 +29,17 @@
 
 ## Overview
 
-BetterPrompt MCP is a Model Context Protocol (MCP) server that enhances your AI interactions by automatically transforming your prompts into more effective versions using world-class prompt engineering techniques.
+BetterPrompt MCP is a Model Context Protocol (MCP) server that automatically enhances user prompts using advanced prompt engineering techniques. It exposes a suite of tools for prompt transformation, code generation, analysis, and best practices, making it easy to get optimal results from AI models.
 
-Instead of spending time crafting perfect prompts, BetterPrompt does the heavy lifting for you - converting simple requests into structured, context-rich instructions that yield better results from AI models.
+Instead of manually crafting detailed prompts, BetterPrompt MCP converts simple requests into structured, context-rich instructions tailored for your task and audience.
 
-### Before & After Example
+**Before & After Example**
 
-**Without BetterPrompt:**
+Without BetterPrompt:
 
 > "Write a function to calculate fibonacci numbers"
 
-**With BetterPrompt Enhancement:**
+With BetterPrompt Enhancement:
 
 > "Create a JavaScript function that calculates Fibonacci numbers using an efficient algorithm. Include error handling for invalid inputs, support for both iterative and recursive approaches, and clear documentation with time complexity analysis. Format the response with clear code examples and explanations."
 
@@ -67,14 +67,23 @@ Install and run via npx:
 npx -y betterprompt-mcp
 ```
 
-Or install directly into VS Code (opens a prompt to add the MCP server):
+Or add to your MCP client configuration:
 
-[<img src="https://img.shields.io/badge/VS_Code-VS_Code?style=flat-square&label=Install%20Server&color=0098FF" alt="Install in VS Code">](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522betterprompt%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522betterprompt-mcp%2522%255D%257D)
+```json
+{
+  "mcpServers": {
+    "betterprompt": {
+      "command": "npx",
+      "args": ["-y", "betterprompt-mcp"]
+    }
+  }
+}
+```
 
-Once installed, you can either:
+Once installed, you can:
 
-1. **Call the enhancement tool explicitly** - Use the `enhance-prompt` tool when you want to improve a specific prompt
-2. **Enable auto-enhancement** - Configure your client to automatically enhance every prompt (see [Auto-Apply Enhancement](#auto-apply-enhancement))
+1. **Call enhancement tools explicitly** – Use the tools below for specific prompt, code, or analysis enhancement
+2. **Enable auto-prelude** – Configure your client to automatically enhance every prompt (see [Auto-Apply Enhancement](#auto-apply-enhancement))
 
 ---
 
@@ -246,13 +255,14 @@ Create or edit `~/.config/opencode/opencode.json`:
 
 ### `enhance-prompt`
 
-AI-powered enhancement using MCP sampling API with 4K token limit.
+General prompt enhancement using advanced prompt engineering techniques.
 
 **Input:**
 
-- `prompt` (string, required) - The user request to convert to an AI-enhanced prompt
+- `prompt` (string, required): The user request to enhance
+- `category` (string, optional): One of `general`, `code`, `analysis`, `creative`, `research`
 
-**Output:** An AI-enhanced prompt with structure, context, and clear instructions.
+**Output:** AI-enhanced prompt with structure, context, and clear instructions.
 
 **Example Usage:**
 
@@ -260,7 +270,8 @@ AI-powered enhancement using MCP sampling API with 4K token limit.
 {
   "name": "enhance-prompt",
   "arguments": {
-    "prompt": "Write a function to calculate fibonacci numbers"
+    "prompt": "Write a function to calculate fibonacci numbers",
+    "category": "code"
   }
 }
 ```
@@ -271,11 +282,11 @@ Specialized enhancement for code generation prompts.
 
 **Input:**
 
-- `prompt` (string, required) - The user request for code generation
-- `language` (string, optional) - Programming language for the code (e.g., "JavaScript", "Python")
-- `complexity` (string, optional) - Desired complexity level (e.g., "simple", "intermediate", "advanced")
+- `prompt` (string, required): The code-related request to enhance
+- `language` (string, optional): Programming language or technology stack
+- `complexity` (string, optional): `beginner`, `intermediate`, or `advanced`
 
-**Output:** An AI-enhanced code prompt with detailed requirements and context.
+**Output:** AI-enhanced code prompt with detailed requirements and context.
 
 **Example Usage:**
 
@@ -296,11 +307,11 @@ Specialized enhancement for analysis prompts.
 
 **Input:**
 
-- `prompt` (string, required) - The user request for analysis
-- `type` (string, optional) - Type of analysis (e.g., "data", "text", "image")
-- `details` (string, optional) - Additional details or requirements
+- `prompt` (string, required): The analysis request to enhance
+- `domain` (string, optional): Specific domain or field of analysis
+- `depth` (string, optional): `overview`, `detailed`, or `comprehensive`
 
-**Output:** An AI-enhanced analysis prompt with structured guidance.
+**Output:** AI-enhanced analysis prompt with structured guidance.
 
 **Example Usage:**
 
@@ -309,8 +320,8 @@ Specialized enhancement for analysis prompts.
   "name": "enhance-analysis-prompt",
   "arguments": {
     "prompt": "Analyze the impact of climate change on polar bears",
-    "type": "text",
-    "details": "Focus on habitat loss and food chain disruption"
+    "domain": "environment",
+    "depth": "comprehensive"
   }
 }
 ```
@@ -321,9 +332,9 @@ Retrieve prompt engineering templates for various tasks.
 
 **Input:**
 
-- `category` (string, optional) - Category of template (e.g., "code", "analysis", "creative", "research")
+- `category` (string, required): One of `code-generation`, `technical-analysis`, `creative-writing`, `research-synthesis`
 
-**Output:** A prompt engineering template for the specified category.
+**Output:** Prompt engineering template for the specified category.
 
 **Example Usage:**
 
@@ -331,7 +342,7 @@ Retrieve prompt engineering templates for various tasks.
 {
   "name": "get-template",
   "arguments": {
-    "category": "code"
+    "category": "code-generation"
   }
 }
 ```
@@ -340,7 +351,7 @@ Retrieve prompt engineering templates for various tasks.
 
 Get comprehensive best practices guide for prompt engineering.
 
-**Output:** A detailed guide on best practices for writing effective prompts.
+**Output:** Detailed guide on best practices for writing effective prompts.
 
 **Example Usage:**
 
@@ -393,7 +404,8 @@ Clear enhancement cache.
 {
   "name": "enhance-prompt",
   "arguments": {
-    "prompt": "Explain quantum computing"
+    "prompt": "Explain quantum computing",
+    "category": "analysis"
   }
 }
 ```
@@ -410,7 +422,9 @@ Clear enhancement cache.
 {
   "name": "enhance-code-prompt",
   "arguments": {
-    "prompt": "Create a React component for a todo list"
+    "prompt": "Create a React component for a todo list",
+    "language": "TypeScript",
+    "complexity": "advanced"
   }
 }
 ```
@@ -428,8 +442,8 @@ Clear enhancement cache.
   "name": "enhance-analysis-prompt",
   "arguments": {
     "prompt": "Analyze the sales data for 2023",
-    "type": "data",
-    "details": "Focus on trends, anomalies, and predictions"
+    "domain": "business",
+    "depth": "comprehensive"
   }
 }
 ```
@@ -504,48 +518,52 @@ To get the most out of BetterPrompt, consider these tips when crafting your init
 **Server not starting**
 
 - Ensure you have Node.js >= 18 installed
-- Try running `npx -y betterprompt-mcp` directly in your terminal
-- Check that your MCP client supports stdio transport
+- Run `npx -y betterprompt-mcp` directly in your terminal to check for errors
+- Confirm your MCP client supports stdio transport
 
 **Tool not appearing in client**
 
-- Verify the server is running correctly
-- Check your client's MCP configuration
+- Verify the server is running and responding
+- Check your MCP client configuration
 - Restart your MCP client after adding the server
 
 **Auto-prelude not working**
 
 - Confirm your client supports the `prompts/list` and `prompts/get` MCP methods
-- Check that you've correctly enabled the `betterprompt-default-prelude` prompt
+- Ensure you've enabled the `betterprompt-default-prelude` prompt
 - Some clients may require a restart after enabling prompts
 
 ### Debugging
 
-BetterPrompt logs enhancement activities to stderr. If you're having issues:
+BetterPrompt logs enhancement activities and errors to stderr. If you encounter issues:
 
-1. Check your client's MCP logs for error messages
+1. Check your MCP client's logs for error messages
 2. Run the server directly to see console output:
-   ```bash
-   npx -y betterprompt-mcp
-   ```
-3. Look for the magenta "🤖 AI-Enhanced prompt" messages in the logs
+
+```bash
+npx -y betterprompt-mcp
+```
+
+3. Look for `[INFO]`, `[WARN]`, `[ERROR]`, and `[SUCCESS]` log messages for diagnostics
 
 ---
 
 ## Development
 
-Project structure:
+### Project Structure
 
 ```
 betterprompt-mcp/
 ├── src/
 │   └── index.ts          # Main server implementation
-├── tests/                # Test files
+├── tests/                # Test files and verification scripts
 ├── dist/                 # Compiled output (generated)
 ├── package.json          # Dependencies and scripts
 ├── tsconfig.json         # TypeScript configuration
-└── README.md             # This file
+└── README.md             # Documentation
 ```
+
+### Build & Development
 
 Build:
 
@@ -566,86 +584,24 @@ npm run format
 npm run format:check
 ```
 
-## License
-
-MIT
-
----
-
-## Support
-
-For questions or issues, open an issue on [GitHub](https://github.com/AungMyoKyaw/betterprompt-mcp/issues) or contact the author.
-
----
-
-## Author
-
-Aung Myo Kyaw (https://github.com/AungMyoKyaw)
-
----
-
-# New Features in v0.2.0
-
-## Advanced Tools
-
-- `enhance-prompt`: General prompt enhancement with category support
-- `enhance-code-prompt`: Specialized code generation enhancement
-- `enhance-analysis-prompt`: Specialized analysis enhancement
-- `get-template`: Retrieve prompt engineering templates
-- `get-best-practices`: Get comprehensive best practices guide
-- `server-stats`: View server performance statistics
-- `clear-cache`: Clear enhancement cache
-
-## Resources
-
-- Exposes prompt engineering templates and best practices as MCP resources
-- Access templates for code, analysis, creative, and research tasks
-
-## Prompts
-
-- Multiple expert-mode prompts for code, analysis, and creative tasks
-- Auto-prelude prompt for seamless enhancement
-
-## Configuration
-
-- Customizable max tokens, timeout, retry attempts, caching size/TTL
-
-## Diagnostics
-
-- Server statistics tool for uptime, memory, cache, and configuration
-- Utility to clear cache and monitor performance
-
-## Error Handling & Logging
-
-- Robust error handling with retry logic and exponential backoff
-- Structured logging to stderr for debugging and monitoring
-
-## Usage Example
-
-```json
-{
-  "name": "enhance-code-prompt",
-  "arguments": {
-    "prompt": "Write a Python function to sort a list of numbers",
-    "language": "Python",
-    "complexity": "advanced"
-  }
-}
-```
-
-## Edge Cases
-
-- Handles timeouts, invalid input, and cache misses gracefully
-- Fallback enhancement if all attempts fail
-
-## How to Test
-
-Run:
+Test:
 
 ```bash
 npm run test:comprehensive
 ```
 
-All features and edge cases are covered in the test suite.
+## License
+
+MIT License
 
 ---
+
+## Support
+
+For questions or issues, open an issue on [GitHub](https://github.com/AungMyoKyaw/betterprompt-mcp/issues) or contact the author via GitHub profile.
+
+---
+
+## Author
+
+Aung Myo Kyaw ([GitHub](https://github.com/AungMyoKyaw))
