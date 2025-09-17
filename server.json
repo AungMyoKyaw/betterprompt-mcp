@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
   "name": "io.github.AungMyoKyaw/betterprompt-mcp",
-  "description": "MCP server that converts user requests to AI-enhanced prompts using world-class prompt engineering techniques",
+  "description": "MCP server for AI-enhanced prompt engineering and request conversion.",
   "status": "active",
   "repository": {
     "url": "https://github.com/AungMyoKyaw/betterprompt-mcp",
