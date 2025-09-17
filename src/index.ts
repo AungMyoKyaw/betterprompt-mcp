@@ -241,7 +241,7 @@ Before submitting a prompt, ask:
 // Create an MCP server
 const server = new McpServer({
   name: 'betterprompt-mcp',
-  version: '0.2.0'
+  version: '0.2.1'
 });
 
 // Resources will be exposed through a helper function for now
