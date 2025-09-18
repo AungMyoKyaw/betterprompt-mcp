@@ -1,5 +1,9 @@
 # BetterPrompt MCP Server
 
+<p align="center">
+  <img src="assets/logo.png" alt="BetterPrompt MCP Logo" width="200">
+</p>
+
 [![CI/CD Pipeline](https://github.com/AungMyoKyaw/betterprompt-mcp/actions/workflows/ci.yml/badge.svg?style=flat-square)](https://github.com/AungMyoKyaw/betterprompt-mcp/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/betterprompt-mcp?style=flat-square)](https://www.npmjs.com/package/betterprompt-mcp)
 [![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-brightgreen?style=flat-square)](https://modelcontextprotocol.io/)
