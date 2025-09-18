@@ -12,16 +12,13 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Why BetterPrompt?](#why-betterprompt)
 - [Quickstart](#quickstart)
 - [Installation](#installation)
-- [Tools Summary](#tools-summary)
-- [Usage Examples](#usage-examples)
+- [Tool](#tool)
+- [Usage Example](#usage-example)
 - [Client Integration](#client-integration)
-- [Auto-Apply Enhancement](#auto-apply-enhancement)
+- [How It Works](#how-it-works)
 - [Development](#development)
-- [Best Practices](#best-practices)
-- [Troubleshooting](#troubleshooting)
 - [License](#license)
 - [Support](#support)
 
@@ -29,9 +26,9 @@
 
 ## Overview
 
-BetterPrompt MCP is a Model Context Protocol (MCP) server that automatically enhances user prompts using advanced prompt engineering techniques. It exposes a suite of tools for prompt transformation, code generation, analysis, and best practices, making it easy to get optimal results from AI models.
+BetterPrompt MCP is a Model Context Protocol (MCP) server that enhances user requests using advanced prompt engineering techniques. It exposes a single, powerful tool that transforms simple requests into structured, context-rich instructions tailored for optimal AI model performance.
 
-Instead of manually crafting detailed prompts, BetterPrompt MCP converts simple requests into structured, context-rich instructions tailored for your task and audience.
+Instead of manually crafting detailed prompts, BetterPrompt MCP converts your requests into expertly engineered prompts that get better results from AI models.
 
 **Before & After Example**
 
@@ -41,21 +38,23 @@ Without BetterPrompt:
 
 With BetterPrompt Enhancement:
 
-> "Create a JavaScript function that calculates Fibonacci numbers using an efficient algorithm. Include error handling for invalid inputs, support for both iterative and recursive approaches, and clear documentation with time complexity analysis. Format the response with clear code examples and explanations."
+> "You are a world-class AI assistant with expertise in advanced prompt engineering techniques from top AI research labs like Anthropic, OpenAI, and Google DeepMind.
 
----
+Your task is to provide an exceptional response to the following user request:
 
-## Why BetterPrompt?
+"Write a function to calculate fibonacci numbers"
 
-AI models respond much better to well-structured prompts with clear context and instructions. BetterPrompt applies proven prompt engineering techniques to transform your requests into optimal formats that:
+Please enhance your response by:
 
-- ✅ **Increase accuracy** - More precise responses with fewer hallucinations
-- ✅ **Improve structure** - Organized, actionable output formats
-- ✅ **Add context** - Relevant background information for better understanding
-- ✅ **Define constraints** - Clear boundaries and requirements
-- ✅ **Specify success criteria** - Know what constitutes a good response
+1. Analyzing the intent and requirements behind this request
+2. Applying appropriate prompt engineering techniques to ensure maximum effectiveness
+3. Adding clarity, specificity, and structure to your approach
+4. Including relevant context and constraints for comprehensive understanding
+5. Ensuring optimal interaction patterns for complex reasoning tasks
+6. Specifying the most appropriate output format for the task
+7. Defining clear success criteria for high-quality results
 
-BetterPrompt works with any MCP-compatible client, including VS Code, Cursor, Claude Desktop, LM Studio, and many others.
+Structure your response with clear headings, detailed explanations, and examples where appropriate. Ensure your answer is comprehensive, actionable, and directly addresses all aspects of the request."
 
 ---
 
@@ -80,14 +79,9 @@ Or add to your MCP client configuration:
 }
 ```
 
-Once installed, you can:
-
-1. **Call enhancement tools explicitly** – Use the tools below for specific prompt, code, or analysis enhancement
-2. **Enable auto-prelude** – Configure your client to automatically enhance every prompt (see [Auto-Apply Enhancement](#auto-apply-enhancement))
-
 ---
 
-## Install in your coding agent
+## Installation
 
 Most MCP clients work with this standard config:
 
@@ -251,16 +245,15 @@ Create or edit `~/.config/opencode/opencode.json`:
 
 ---
 
-## Tools
+## Tool
 
-### `enhance-prompt`
+### `enhance-request`
 
-General prompt enhancement using advanced prompt engineering techniques.
+Transforms user requests into world-class AI-enhanced prompts using advanced prompt engineering techniques.
 
 **Input:**
 
-- `prompt` (string, required): The user request to enhance
-- `category` (string, optional): One of `general`, `code`, `analysis`, `creative`, `research`
+- `request` (string, required): The user request to transform into an enhanced AI prompt
 
 **Output:** AI-enhanced prompt with structure, context, and clear instructions.
 
@@ -268,283 +261,64 @@ General prompt enhancement using advanced prompt engineering techniques.
 
 ```json
 {
-  "name": "enhance-prompt",
+  "name": "enhance-request",
   "arguments": {
-    "prompt": "Write a function to calculate fibonacci numbers",
-    "category": "code"
+    "request": "Write a function to calculate fibonacci numbers"
   }
-}
-```
-
-### `enhance-code-prompt`
-
-Specialized enhancement for code generation prompts.
-
-**Input:**
-
-- `prompt` (string, required): The code-related request to enhance
-- `language` (string, optional): Programming language or technology stack
-- `complexity` (string, optional): `beginner`, `intermediate`, or `advanced`
-
-**Output:** AI-enhanced code prompt with detailed requirements and context.
-
-**Example Usage:**
-
-```json
-{
-  "name": "enhance-code-prompt",
-  "arguments": {
-    "prompt": "Write a Python function to sort a list of numbers",
-    "language": "Python",
-    "complexity": "advanced"
-  }
-}
-```
-
-### `enhance-analysis-prompt`
-
-Specialized enhancement for analysis prompts.
-
-**Input:**
-
-- `prompt` (string, required): The analysis request to enhance
-- `domain` (string, optional): Specific domain or field of analysis
-- `depth` (string, optional): `overview`, `detailed`, or `comprehensive`
-
-**Output:** AI-enhanced analysis prompt with structured guidance.
-
-**Example Usage:**
-
-```json
-{
-  "name": "enhance-analysis-prompt",
-  "arguments": {
-    "prompt": "Analyze the impact of climate change on polar bears",
-    "domain": "environment",
-    "depth": "comprehensive"
-  }
-}
-```
-
-### `get-template`
-
-Retrieve prompt engineering templates for various tasks.
-
-**Input:**
-
-- `category` (string, required): One of `code-generation`, `technical-analysis`, `creative-writing`, `research-synthesis`
-
-**Output:** Prompt engineering template for the specified category.
-
-**Example Usage:**
-
-```json
-{
-  "name": "get-template",
-  "arguments": {
-    "category": "code-generation"
-  }
-}
-```
-
-### `get-best-practices`
-
-Get comprehensive best practices guide for prompt engineering.
-
-**Output:** Detailed guide on best practices for writing effective prompts.
-
-**Example Usage:**
-
-```json
-{
-  "name": "get-best-practices",
-  "arguments": {}
-}
-```
-
-### `server-stats`
-
-View server performance statistics.
-
-**Output:** Current server statistics including uptime, memory usage, and cache status.
-
-**Example Usage:**
-
-```json
-{
-  "name": "server-stats",
-  "arguments": {}
-}
-```
-
-### `clear-cache`
-
-Clear enhancement cache.
-
-**Output:** Confirmation of cache clearance.
-
-**Example Usage:**
-
-```json
-{
-  "name": "clear-cache",
-  "arguments": {}
 }
 ```
 
 ---
 
-## Usage Examples
-
-### Basic Prompt Enhancement
+## Usage Example
 
 **Request:**
 
 ```json
 {
-  "name": "enhance-prompt",
+  "name": "enhance-request",
   "arguments": {
-    "prompt": "Explain quantum computing",
-    "category": "analysis"
+    "request": "Explain quantum computing"
   }
 }
 ```
 
 **Enhanced Result:**
 
-> "Provide a comprehensive explanation of quantum computing for a technical audience. Cover fundamental concepts including qubits, superposition, entanglement, and quantum gates. Compare classical vs. quantum computing approaches. Include real-world applications and current limitations. Structure the response with clear headings and examples."
+> "You are a world-class AI assistant with expertise in advanced prompt engineering techniques from top AI research labs like Anthropic, OpenAI, and Google DeepMind.
 
-### Code Generation Enhancement
+Your task is to provide an exceptional response to the following user request:
 
-**Request:**
+"Explain quantum computing"
 
-```json
-{
-  "name": "enhance-code-prompt",
-  "arguments": {
-    "prompt": "Create a React component for a todo list",
-    "language": "TypeScript",
-    "complexity": "advanced"
-  }
-}
-```
+Please enhance your response by:
 
-**Enhanced Result:**
+1. Analyzing the intent and requirements behind this request
+2. Applying appropriate prompt engineering techniques to ensure maximum effectiveness
+3. Adding clarity, specificity, and structure to your approach
+4. Including relevant context and constraints for comprehensive understanding
+5. Ensuring optimal interaction patterns for complex reasoning tasks
+6. Specifying the most appropriate output format for the task
+7. Defining clear success criteria for high-quality results
 
-> "Build a React component for a todo list application with the following features: add new todos, mark as complete, delete items, and filter by status (all/active/completed). Use modern React hooks (useState, useEffect) and ensure accessible HTML. Include proper TypeScript typing, CSS styling, and error handling. Provide a clean, user-friendly interface with responsive design."
-
-### Analysis Enhancement
-
-**Request:**
-
-```json
-{
-  "name": "enhance-analysis-prompt",
-  "arguments": {
-    "prompt": "Analyze the sales data for 2023",
-    "domain": "business",
-    "depth": "comprehensive"
-  }
-}
-```
-
-**Enhanced Result:**
-
-> "Perform a detailed analysis of the sales data for 2023. Identify key trends, seasonal patterns, and anomalies. Provide predictions for the next quarter based on historical data. Use visualizations like charts and graphs to illustrate findings. Ensure the analysis is actionable with clear recommendations."
+Structure your response with clear headings, detailed explanations, and examples where appropriate. Ensure your answer is comprehensive, actionable, and directly addresses all aspects of the request."
 
 ---
 
-## Auto-Apply Enhancement
+## How It Works
 
-BetterPrompt offers a unique feature that automatically enhances every prompt without requiring manual tool calls.
+BetterPrompt MCP leverages the [MCP Sampling API](https://modelcontextprotocol.io/specification/2025-06-18/client/sampling) to enhance user requests:
 
-### How it works
+1. When you call the `enhance-request` tool, the server sends a sampling request to your MCP client
+2. Your client uses its configured LLM to enhance the prompt using advanced prompt engineering techniques
+3. The enhanced prompt is returned to you for use with any AI model
 
-When you enable the `betterprompt-default-prelude` in your MCP client:
+This approach has several benefits:
 
-1. Every user request is internally enhanced using world-class prompt engineering techniques
-2. The assistant applies the enhanced version to plan its reasoning
-3. The assistant produces a superior result without mentioning the enhancement process
-4. Your workflow remains simple - no need to call tools explicitly
-
-### Enabling Auto-Enhancement
-
-Many MCP clients allow selecting a prompt template to include at the start of a chat or session. BetterPrompt publishes:
-
-- `betterprompt-default-prelude`
-
-Enable this prompt in your client's "Prompts" or "Prelude/System" section to automatically apply BetterPrompt techniques to each user message.
-
-**Notes:**
-
-- The exact UI for enabling a default prompt varies by MCP client
-- Look for a way to select or add a "prompt"/"system"/"prelude" entry for a server
-- This approach works across MCP clients because it relies on standard `prompts/list` and `get_prompt` support
-
----
-
-## Best Practices
-
-### Writing Prompts for BetterPrompt
-
-To get the most out of BetterPrompt, consider these tips when crafting your initial prompts:
-
-1. **Be specific about the task**: Instead of "explain databases", try "explain database normalization for a beginner"
-2. **Mention the audience**: Include who the content is for (developers, managers, students, etc.)
-3. **Specify the format**: Request specific output formats when helpful (bullet points, code, tables, etc.)
-4. **Include constraints**: Mention any limitations like word count, technical level, or specific requirements
-5. **State the purpose**: Explain what you'll use the information for
-
-### When to Use Manual vs. Auto Enhancement
-
-**Use Manual Enhancement (`enhance-prompt` tool) when:**
-
-- You want to see the enhanced prompt before using it
-- You're working on critical tasks where you want to review the enhancement
-- You only need to enhance specific prompts occasionally
-
-**Use Auto Enhancement (prelude) when:**
-
-- You want all prompts enhanced without extra steps
-- You're doing exploratory work or brainstorming
-- You prefer a seamless experience without manual tool calls
-
----
-
-## Troubleshooting
-
-### Common Issues
-
-**Server not starting**
-
-- Ensure you have Node.js >= 18 installed
-- Run `npx -y betterprompt-mcp` directly in your terminal to check for errors
-- Confirm your MCP client supports stdio transport
-
-**Tool not appearing in client**
-
-- Verify the server is running and responding
-- Check your MCP client configuration
-- Restart your MCP client after adding the server
-
-**Auto-prelude not working**
-
-- Confirm your client supports the `prompts/list` and `prompts/get` MCP methods
-- Ensure you've enabled the `betterprompt-default-prelude` prompt
-- Some clients may require a restart after enabling prompts
-
-### Debugging
-
-BetterPrompt logs enhancement activities and errors to stderr. If you encounter issues:
-
-1. Check your MCP client's logs for error messages
-2. Run the server directly to see console output:
-
-```bash
-npx -y betterprompt-mcp
-```
-
-3. Look for `[INFO]`, `[WARN]`, `[ERROR]`, and `[SUCCESS]` log messages for diagnostics
+- No API keys required - uses your client's existing LLM configuration
+- Leverages the most capable model available in your client
+- Works with any MCP-compatible client (Claude Desktop, VS Code, Cursor, etc.)
+- Always up-to-date with the latest prompt engineering techniques
 
 ---
 

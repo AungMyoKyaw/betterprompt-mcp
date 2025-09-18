@@ -1,44 +1,43 @@
 #!/usr/bin/env node
 
+// Simple verification script for BetterPrompt MCP Server
 import { spawn } from 'child_process';
 
-async function testServer() {
-  // Spawn the server process
-  const server = spawn('node', ['dist/index.js'], {
-    stdio: ['pipe', 'pipe', 'pipe']
-  });
+console.log('Verifying BetterPrompt MCP Server...');
 
-  // Handle server output
-  server.stdout.on('data', (data) => {
-    console.log(`Server stdout: ${data}`);
-  });
+// Start the server
+const serverProcess = spawn('node', ['dist/index.js'], {
+  stdio: ['pipe', 'pipe', 'pipe']
+});
 
-  server.stderr.on('data', (data) => {
-    console.log(`Server stderr: ${data}`);
-  });
+let serverStarted = false;
 
-  server.on('close', (code) => {
-    console.log(`Server process exited with code ${code}`);
-  });
+// Listen for server startup message
+serverProcess.stderr.on('data', (data) => {
+  const output = data.toString();
+  console.log('Server log:', output);
 
-  // Wait a bit for the server to start
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  if (output.includes('started successfully')) {
+    serverStarted = true;
+    console.log('✅ Server started successfully');
 
-  // Send a test request
-  const testRequest = {
-    jsonrpc: '2.0',
-    id: 1,
-    method: 'tools/list',
-    params: {}
-  };
+    // Clean up and exit
+    serverProcess.kill();
+    process.exit(0);
+  }
+});
 
-  server.stdin.write(JSON.stringify(testRequest) + '\n');
+// Handle server errors
+serverProcess.on('error', (error) => {
+  console.error('Failed to start server:', error);
+  process.exit(1);
+});
 
-  // Wait for response
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  // Close the server
-  server.kill();
-}
-
-testServer().catch(console.error);
+// Timeout after 10 seconds
+setTimeout(() => {
+  if (!serverStarted) {
+    console.log('❌ Server failed to start within 10 seconds');
+    serverProcess.kill();
+    process.exit(1);
+  }
+}, 10000);
