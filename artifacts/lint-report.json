@@ -1,0 +1,219 @@
+[
+  {
+    "filePath": "/Users/aungmyokyaw/Desktop/life/repos/betterprompt-mcp/src/engine/BetterPromptEngine.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "/Users/aungmyokyaw/Desktop/life/repos/betterprompt-mcp/src/engine/strategies/AdvancedStrategies.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "/Users/aungmyokyaw/Desktop/life/repos/betterprompt-mcp/src/engine/strategies/CoreStrategies.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "/Users/aungmyokyaw/Desktop/life/repos/betterprompt-mcp/src/index.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "/Users/aungmyokyaw/Desktop/life/repos/betterprompt-mcp/src/server/McpServer.ts",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-explicit-any",
+        "severity": 1,
+        "message": "Unexpected any. Specify a different type.",
+        "line": 279,
+        "column": 46,
+        "nodeType": "TSAnyKeyword",
+        "messageId": "unexpectedAny",
+        "endLine": 279,
+        "endColumn": 49,
+        "suggestions": [
+          {
+            "messageId": "suggestUnknown",
+            "fix": { "range": [8497, 8500], "text": "unknown" },
+            "desc": "Use `unknown` instead, this will force you to explicitly, and safely assert the type is correct."
+          },
+          {
+            "messageId": "suggestNever",
+            "fix": { "range": [8497, 8500], "text": "never" },
+            "desc": "Use `never` instead, this is useful when instantiating generic type parameters that you don't need to know the type of."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-explicit-any",
+        "severity": 1,
+        "message": "Unexpected any. Specify a different type.",
+        "line": 305,
+        "column": 42,
+        "nodeType": "TSAnyKeyword",
+        "messageId": "unexpectedAny",
+        "endLine": 305,
+        "endColumn": 45,
+        "suggestions": [
+          {
+            "messageId": "suggestUnknown",
+            "fix": { "range": [9305, 9308], "text": "unknown" },
+            "desc": "Use `unknown` instead, this will force you to explicitly, and safely assert the type is correct."
+          },
+          {
+            "messageId": "suggestNever",
+            "fix": { "range": [9305, 9308], "text": "never" },
+            "desc": "Use `never` instead, this is useful when instantiating generic type parameters that you don't need to know the type of."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-explicit-any",
+        "severity": 1,
+        "message": "Unexpected any. Specify a different type.",
+        "line": 326,
+        "column": 46,
+        "nodeType": "TSAnyKeyword",
+        "messageId": "unexpectedAny",
+        "endLine": 326,
+        "endColumn": 49,
+        "suggestions": [
+          {
+            "messageId": "suggestUnknown",
+            "fix": { "range": [10009, 10012], "text": "unknown" },
+            "desc": "Use `unknown` instead, this will force you to explicitly, and safely assert the type is correct."
+          },
+          {
+            "messageId": "suggestNever",
+            "fix": { "range": [10009, 10012], "text": "never" },
+            "desc": "Use `never` instead, this is useful when instantiating generic type parameters that you don't need to know the type of."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-explicit-any",
+        "severity": 1,
+        "message": "Unexpected any. Specify a different type.",
+        "line": 340,
+        "column": 48,
+        "nodeType": "TSAnyKeyword",
+        "messageId": "unexpectedAny",
+        "endLine": 340,
+        "endColumn": 51,
+        "suggestions": [
+          {
+            "messageId": "suggestUnknown",
+            "fix": { "range": [10448, 10451], "text": "unknown" },
+            "desc": "Use `unknown` instead, this will force you to explicitly, and safely assert the type is correct."
+          },
+          {
+            "messageId": "suggestNever",
+            "fix": { "range": [10448, 10451], "text": "never" },
+            "desc": "Use `never` instead, this is useful when instantiating generic type parameters that you don't need to know the type of."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-explicit-any",
+        "severity": 1,
+        "message": "Unexpected any. Specify a different type.",
+        "line": 352,
+        "column": 46,
+        "nodeType": "TSAnyKeyword",
+        "messageId": "unexpectedAny",
+        "endLine": 352,
+        "endColumn": 49,
+        "suggestions": [
+          {
+            "messageId": "suggestUnknown",
+            "fix": { "range": [10759, 10762], "text": "unknown" },
+            "desc": "Use `unknown` instead, this will force you to explicitly, and safely assert the type is correct."
+          },
+          {
+            "messageId": "suggestNever",
+            "fix": { "range": [10759, 10762], "text": "never" },
+            "desc": "Use `never` instead, this is useful when instantiating generic type parameters that you don't need to know the type of."
+          }
+        ]
+      },
+      {
+        "ruleId": "@typescript-eslint/no-explicit-any",
+        "severity": 1,
+        "message": "Unexpected any. Specify a different type.",
+        "line": 364,
+        "column": 44,
+        "nodeType": "TSAnyKeyword",
+        "messageId": "unexpectedAny",
+        "endLine": 364,
+        "endColumn": 47,
+        "suggestions": [
+          {
+            "messageId": "suggestUnknown",
+            "fix": { "range": [11068, 11071], "text": "unknown" },
+            "desc": "Use `unknown` instead, this will force you to explicitly, and safely assert the type is correct."
+          },
+          {
+            "messageId": "suggestNever",
+            "fix": { "range": [11068, 11071], "text": "never" },
+            "desc": "Use `never` instead, this is useful when instantiating generic type parameters that you don't need to know the type of."
+          }
+        ]
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 6,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": "import { Server } from '@modelcontextprotocol/sdk/server/index.js';\nimport { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';\nimport {\n  CallToolRequestSchema,\n  ListToolsRequestSchema,\n  McpError,\n  ErrorCode\n} from '@modelcontextprotocol/sdk/types.js';\nimport chalk from 'chalk';\nimport { z } from 'zod';\n\nimport { BetterPromptEngine } from '../engine/BetterPromptEngine.js';\nimport { PromptRequest, OptimizationConfig, DEFAULT_CONFIG } from '../types.js';\nimport { ALL_TOOLS } from './tools.js';\n\n/**\n * MCP server implementation for BetterPrompt\n */\nexport class BetterPromptMcpServer {\n  private server: Server;\n  private engine: BetterPromptEngine;\n  private disableLogging: boolean;\n\n  constructor() {\n    this.engine = new BetterPromptEngine();\n    this.disableLogging =\n      process.env.DISABLE_BETTERPROMPT_LOGGING?.toLowerCase() === 'true';\n\n    this.server = new Server(\n      {\n        name: 'betterprompt-mcp-server',\n        version: '1.0.0'\n      },\n      {\n        capabilities: {\n          tools: {}\n        }\n      }\n    );\n\n    this.setupRequestHandlers();\n  }\n\n  private setupRequestHandlers(): void {\n    // List available tools\n    this.server.setRequestHandler(ListToolsRequestSchema, async () => ({\n      tools: ALL_TOOLS\n    }));\n\n    // Handle tool calls\n    this.server.setRequestHandler(CallToolRequestSchema, async (request) => {\n      try {\n        switch (request.params.name) {\n          case 'betterprompt':\n            return await this.handleBetterPrompt(request.params.arguments);\n          case 'analyze-request':\n            return await this.handleAnalyzeRequest(request.params.arguments);\n          case 'quick-enhance':\n            return await this.handleQuickEnhance(request.params.arguments);\n          default:\n            throw new McpError(\n              ErrorCode.MethodNotFound,\n              `Unknown tool: ${request.params.name}`\n            );\n        }\n      } catch (error) {\n        this.logError('Tool execution error:', error);\n\n        if (error instanceof McpError) {\n          throw error;\n        }\n\n        throw new McpError(\n          ErrorCode.InternalError,\n          `Tool execution failed: ${error instanceof Error ? error.message : String(error)}`\n        );\n      }\n    });\n  }\n\n  private async handleBetterPrompt(\n    args: unknown\n  ): Promise<{ content: Array<{ type: string; text: string }> }> {\n    const validatedArgs = this.validateBetterPromptArgs(args);\n\n    const request: PromptRequest = {\n      originalRequest: validatedArgs.request,\n      context: validatedArgs.context,\n      domain: validatedArgs.domain,\n      targetAudience: validatedArgs.targetAudience,\n      desiredTone: validatedArgs.desiredTone,\n      constraints: validatedArgs.constraints\n    };\n\n    const config: OptimizationConfig = {\n      level: validatedArgs.optimizationLevel || DEFAULT_CONFIG.level,\n      includeExamples:\n        validatedArgs.includeExamples ?? DEFAULT_CONFIG.includeExamples,\n      outputFormat: validatedArgs.outputFormat || DEFAULT_CONFIG.outputFormat,\n      enableChainOfThought:\n        validatedArgs.enableChainOfThought ??\n        DEFAULT_CONFIG.enableChainOfThought,\n      enableRoleBasedPrompting:\n        validatedArgs.enableRoleBasedPrompting ??\n        DEFAULT_CONFIG.enableRoleBasedPrompting,\n      enableContextEnhancement:\n        validatedArgs.enableContextEnhancement ??\n        DEFAULT_CONFIG.enableContextEnhancement,\n      enableSelfConsistency:\n        validatedArgs.enableSelfConsistency ??\n        DEFAULT_CONFIG.enableSelfConsistency,\n      creativity: validatedArgs.creativity || DEFAULT_CONFIG.creativity\n    };\n\n    this.logOperation('Optimizing prompt', {\n      originalLength: request.originalRequest.length,\n      level: config.level,\n      strategies: Object.entries(config)\n        .filter(([key, value]) => key.startsWith('enable') && value)\n        .map(([key]) => key.replace('enable', ''))\n    });\n\n    const result = await this.engine.optimizePrompt(request, config);\n\n    this.logSuccess('Prompt optimization completed', {\n      enhancedLength: result.enhanced.length,\n      qualityScore: result.metadata.estimatedQuality,\n      strategiesApplied: result.metadata.strategiesApplied.length\n    });\n\n    return {\n      content: [\n        {\n          type: 'text',\n          text: this.formatBetterPromptResponse(result)\n        }\n      ]\n    };\n  }\n\n  private async handleAnalyzeRequest(\n    args: unknown\n  ): Promise<{ content: Array<{ type: string; text: string }> }> {\n    const validatedArgs = this.validateAnalyzeRequestArgs(args);\n\n    const request: PromptRequest = {\n      originalRequest: validatedArgs.request,\n      domain: validatedArgs.domain\n    };\n\n    // Use a minimal config for analysis\n    const analysisConfig: OptimizationConfig = {\n      ...DEFAULT_CONFIG,\n      level: 'basic'\n    };\n\n    // Get analysis without full optimization\n    const result = await this.engine.optimizePrompt(request, analysisConfig);\n\n    this.logOperation('Request analysis completed', {\n      complexity: result.metadata.complexity,\n      wordCount: result.metadata.wordCount\n    });\n\n    return {\n      content: [\n        {\n          type: 'text',\n          text: this.formatAnalysisResponse(result, request)\n        }\n      ]\n    };\n  }\n\n  private async handleQuickEnhance(\n    args: unknown\n  ): Promise<{ content: Array<{ type: string; text: string }> }> {\n    const validatedArgs = this.validateQuickEnhanceArgs(args);\n\n    const request: PromptRequest = {\n      originalRequest: validatedArgs.request,\n      desiredTone: validatedArgs.tone\n    };\n\n    const quickConfig: OptimizationConfig = {\n      level: 'basic',\n      includeExamples: false,\n      outputFormat: 'conversational',\n      enableChainOfThought: false,\n      enableRoleBasedPrompting: false,\n      enableContextEnhancement: true,\n      enableSelfConsistency: false,\n      creativity: 'standard'\n    };\n\n    const result = await this.engine.optimizePrompt(request, quickConfig);\n\n    this.logOperation('Quick enhancement completed', {\n      originalLength: request.originalRequest.length,\n      enhancedLength: result.enhanced.length\n    });\n\n    return {\n      content: [\n        {\n          type: 'text',\n          text: this.formatQuickEnhanceResponse(result)\n        }\n      ]\n    };\n  }\n\n  private validateBetterPromptArgs(args: unknown): BetterPromptArgs {\n    const schema = z.object({\n      request: z.string().min(1).max(10000),\n      optimizationLevel: z.enum(['basic', 'advanced', 'expert']).optional(),\n      includeExamples: z.boolean().optional(),\n      outputFormat: z\n        .enum(['conversational', 'structured', 'creative'])\n        .optional(),\n      enableChainOfThought: z.boolean().optional(),\n      enableRoleBasedPrompting: z.boolean().optional(),\n      enableContextEnhancement: z.boolean().optional(),\n      enableSelfConsistency: z.boolean().optional(),\n      creativity: z.enum(['standard', 'high', 'maximum']).optional(),\n      context: z.string().max(2000).optional(),\n      domain: z.string().max(100).optional(),\n      targetAudience: z.string().max(200).optional(),\n      desiredTone: z\n        .enum(['professional', 'casual', 'academic', 'creative', 'technical'])\n        .optional(),\n      constraints: z.array(z.string().max(200)).max(10).optional()\n    });\n\n    try {\n      return schema.parse(args);\n    } catch (error) {\n      throw new McpError(\n        ErrorCode.InvalidParams,\n        `Invalid arguments: ${error instanceof Error ? error.message : String(error)}`\n      );\n    }\n  }\n\n  private validateAnalyzeRequestArgs(args: unknown): AnalyzeRequestArgs {\n    const schema = z.object({\n      request: z.string().min(1).max(10000),\n      domain: z.string().max(100).optional()\n    });\n\n    try {\n      return schema.parse(args);\n    } catch (error) {\n      throw new McpError(\n        ErrorCode.InvalidParams,\n        `Invalid arguments: ${error instanceof Error ? error.message : String(error)}`\n      );\n    }\n  }\n\n  private validateQuickEnhanceArgs(args: unknown): QuickEnhanceArgs {\n    const schema = z.object({\n      request: z.string().min(1).max(5000),\n      tone: z\n        .enum(['professional', 'casual', 'academic', 'creative'])\n        .optional()\n    });\n\n    try {\n      return schema.parse(args);\n    } catch (error) {\n      throw new McpError(\n        ErrorCode.InvalidParams,\n        `Invalid arguments: ${error instanceof Error ? error.message : String(error)}`\n      );\n    }\n  }\n\n  private formatBetterPromptResponse(result: any): string {\n    let response = `# 🚀 BetterPrompt Optimization Results\n\n## Enhanced Prompt\n${result.enhanced}\n\n## Optimization Summary\n- **Quality Score**: ${result.metadata.estimatedQuality}/100\n- **Optimization Level**: ${result.metadata.optimizationLevel}\n- **Word Count**: ${result.metadata.wordCount} words\n- **Complexity**: ${result.metadata.complexity}\n- **Strategies Applied**: ${result.metadata.strategiesApplied.join(', ')}\n\n## Reasoning\n${result.reasoning}`;\n\n    if (result.alternatives && result.alternatives.length > 0) {\n      response += `\\n\\n## Alternative Versions\\n\\n`;\n      result.alternatives.forEach((alt: string, index: number) => {\n        response += `### Alternative ${index + 1}\\n${alt}\\n\\n`;\n      });\n    }\n\n    return response;\n  }\n\n  private formatAnalysisResponse(result: any, request: PromptRequest): string {\n    return `# 📊 Request Analysis Results\n\n## Original Request\n\"${request.originalRequest}\"\n\n## Analysis Summary\n- **Complexity Level**: ${result.metadata.complexity}\n- **Word Count**: ${result.metadata.wordCount}\n- **Domain**: ${request.domain || 'Auto-detected during optimization'}\n\n## Recommended Optimizations\n${result.reasoning}\n\n## Estimated Quality Improvement\nWith full BetterPrompt optimization, this request could achieve a quality score of **${result.metadata.estimatedQuality}/100**.\n\n## Suggested Strategies\n${result.metadata.strategiesApplied.map((strategy: string) => `- ${strategy}`).join('\\n')}`;\n  }\n\n  private formatQuickEnhanceResponse(result: any): string {\n    return `# ⚡ Quick Enhancement Results\n\n## Enhanced Request\n${result.enhanced}\n\n## Improvement Summary\n- **Quality Score**: ${result.metadata.estimatedQuality}/100\n- **Word Count**: ${result.metadata.wordCount} words\n- **Enhancement Level**: Quick optimization applied\n\n*For more advanced optimization, use the full \\`betterprompt\\` tool with expert-level settings.*`;\n  }\n\n  private logOperation(message: string, data?: any): void {\n    if (this.disableLogging) return;\n\n    console.error(chalk.blue('🔧 BetterPrompt:'), chalk.white(message));\n    if (data) {\n      console.error(\n        chalk.gray('   Details:'),\n        chalk.gray(JSON.stringify(data, null, 2))\n      );\n    }\n  }\n\n  private logSuccess(message: string, data?: any): void {\n    if (this.disableLogging) return;\n\n    console.error(chalk.green('✅ BetterPrompt:'), chalk.white(message));\n    if (data) {\n      console.error(\n        chalk.gray('   Results:'),\n        chalk.gray(JSON.stringify(data, null, 2))\n      );\n    }\n  }\n\n  private logError(message: string, error: any): void {\n    if (this.disableLogging) return;\n\n    console.error(chalk.red('❌ BetterPrompt:'), chalk.white(message));\n    console.error(\n      chalk.red('   Error:'),\n      chalk.red(error instanceof Error ? error.message : String(error))\n    );\n  }\n\n  async start(): Promise<void> {\n    const transport = new StdioServerTransport();\n    await this.server.connect(transport);\n\n    if (!this.disableLogging) {\n      console.error(\n        chalk.cyan('🚀 BetterPrompt MCP Server'),\n        chalk.white('running on stdio')\n      );\n      console.error(\n        chalk.gray('   Transform any request into world-class prompts!')\n      );\n    }\n  }\n}\n\n// Type definitions for validation\ninterface BetterPromptArgs {\n  request: string;\n  optimizationLevel?: 'basic' | 'advanced' | 'expert';\n  includeExamples?: boolean;\n  outputFormat?: 'conversational' | 'structured' | 'creative';\n  enableChainOfThought?: boolean;\n  enableRoleBasedPrompting?: boolean;\n  enableContextEnhancement?: boolean;\n  enableSelfConsistency?: boolean;\n  creativity?: 'standard' | 'high' | 'maximum';\n  context?: string;\n  domain?: string;\n  targetAudience?: string;\n  desiredTone?:\n    | 'professional'\n    | 'casual'\n    | 'academic'\n    | 'creative'\n    | 'technical';\n  constraints?: string[];\n}\n\ninterface AnalyzeRequestArgs {\n  request: string;\n  domain?: string;\n}\n\ninterface QuickEnhanceArgs {\n  request: string;\n  tone?: 'professional' | 'casual' | 'academic' | 'creative';\n}\n",
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "/Users/aungmyokyaw/Desktop/life/repos/betterprompt-mcp/src/server/tools.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "/Users/aungmyokyaw/Desktop/life/repos/betterprompt-mcp/src/types.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  }
+]

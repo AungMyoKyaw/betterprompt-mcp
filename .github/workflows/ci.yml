@@ -8,8 +8,36 @@ on:
   workflow_dispatch:
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci --no-audit
+
+      - name: Run ESLint (JSON output)
+        run: |
+          mkdir -p artifacts
+          npm run lint:ci
+
+      - name: Upload lint report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: artifacts/lint-report.json
+
   build:
     name: Build Project
+    needs: [lint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository

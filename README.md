@@ -368,6 +368,15 @@ Test:
 npm run test:comprehensive
 ```
 
+### Linting and Formatting
+
+We use ESLint + Prettier to keep the codebase consistent.
+
+- Run the linter locally: `npm run lint`
+- Apply autofixes: `npm run lint -- --fix` or `npm run lint:fix`
+- Run the CI-oriented lint (JSON output): `npm run lint:ci` (produces `artifacts/lint-report.json`)
+- Autofix auto-commit policy: safe, formatting-only autofixes are auto-committed using `scripts/lint-autofix-and-commit.sh`. The script uses a conservative heuristic (small change threshold) and will abort auto-commit when changes appear large or potentially behavior-affecting; in such cases open a PR for human review.
+
 ## License
 
 MIT License

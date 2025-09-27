@@ -42,14 +42,21 @@
     "watch": "tsc --watch",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "node tests/test.js",
-    "test:comprehensive": "node tests/final-verification.js",
-    "test:all": "npm run test && npm run test:comprehensive",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "test:validation": "tsx tests/validation.ts",
+    "test:comprehensive": "npm run test:validation",
+    "test:all": "npm run test && npm run test:validation",
     "type-check": "tsc --noEmit",
-    "lint": "echo 'Lint check - consider adding ESLint for better code quality'",
+    "lint": "eslint -c .eslintrc.cjs src/**/*.ts",
+    "lint:fix": "eslint -c .eslintrc.cjs src/**/*.ts --fix",
+    "dev": "tsx watch src/index.ts",
     "prepack": "npm run build",
     "ci": "npm ci && npm run type-check && npm run format:check && npm run build && npm run test:all",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "lint:ci": "eslint -c .eslintrc.cjs \"src/**/*.ts\" --format json -o artifacts/lint-report.json",
+    "lint:autofix": "sh scripts/lint-autofix-and-commit.sh"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.18.0",
@@ -58,10 +65,18 @@
   },
   "devDependencies": {
     "@types/node": "^22.9.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "@vitest/coverage-v8": "^1.2.0",
     "audit-ci": "^7.1.0",
     "depcheck": "^1.4.7",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.0",
     "prettier": "^3.4.2",
     "shx": "^0.3.4",
-    "typescript": "^5.7.2"
+    "tsx": "^4.7.0",
+    "typescript": "^5.7.2",
+    "vitest": "^1.2.0"
   }
 }
