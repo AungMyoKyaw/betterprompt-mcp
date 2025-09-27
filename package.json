@@ -59,9 +59,9 @@
     "lint:autofix": "sh scripts/lint-autofix-and-commit.sh"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "1.18.0",
+    "@modelcontextprotocol/sdk": "1.18.2",
     "chalk": "^5.3.0",
-    "zod": "^3.23.8"
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@types/node": "^22.9.0",
