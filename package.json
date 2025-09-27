@@ -64,7 +64,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "^22.9.0",
+    "@types/node": "^24.5.2",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
     "@vitest/coverage-v8": "^1.2.0",
@@ -74,7 +74,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.0",
     "prettier": "^3.4.2",
-    "shx": "^0.3.4",
+    "shx": "^0.4.0",
     "tsx": "^4.7.0",
     "typescript": "^5.7.2",
     "vitest": "^1.2.0"
